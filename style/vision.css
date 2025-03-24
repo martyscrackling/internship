@@ -1,0 +1,287 @@
+*{
+  font-family: 'Poppins', sans-serif;
+
+}
+.navbar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  transition: top 0.3s ease-in-out;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0) 100%
+  ) !important;
+  box-shadow: none;
+  z-index: 1000; /* Ensure it's above everything */
+}
+
+.navbar .nav-link,
+.navbar .navbar-brand,
+.navbar .navbar-toggler-icon {
+  color: white !important;
+}
+
+/* For dropdown items */
+.navbar .dropdown-menu {
+  background-color: white;
+}
+
+.navbar .dropdown-item {
+  color: green;
+}
+
+.navbar .dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+/* Navbar Styling */
+
+.navbar-brand img {
+  width: 60px;
+  transition: 0.3s;
+}
+.hidden-text {
+  margin-left: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  text-shadow: #222;
+}
+
+.show-text {
+  opacity: 1; /* Show text when scrolling */
+}
+
+.navbar-nav .nav-link {
+  margin-left: 20px; /* Adjust as needed */
+}
+
+@media (max-width: 990px) {
+  #navbar-text {
+    visibility: hidden;
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+}
+/* General Improvements */
+body {
+  background-color: #f8f9fa; /* Light gray background */
+}
+
+h1 {
+  text-align: center; /* Center headings */
+  font-size: 2.5rem;
+  color: #2d6a4f;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+/* Back Button */
+.back-btn {
+  top: 10px;
+  left: 10px;
+  width: 45px;
+  height: 45px;
+}
+
+/* Section Improvements */
+.desc {
+  margin: 3rem auto;
+  padding: 20px;
+  text-align: justify;
+  font-size: 18px;
+  line-height: 1.6;
+  max-width: 900px; /* Limit width */
+  background: white;
+  border-radius: 10px;
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Fixes */
+@media (max-width: 768px) {
+  .desc {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 16px;
+  }
+}
+
+.back-btn {
+  position: absolute;
+  top: 15%;
+  left: 20px;
+  background: #fff;
+  border: none;
+  padding: 10px;
+  font-size: 20px;
+  color: #47984e;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  width: 40px;
+  height: 40px;
+  text-decoration: none;
+
+}
+
+
+.back-btn:hover {
+  background: #f0f0f0;
+  transform: scale(1.1);
+}
+
+.back-btn i {
+  transition: color 0.3s;
+}
+
+.back-btn:hover i {
+  color: #357a3a;
+}
+
+
+
+
+
+
+.vision {
+  margin: 10% 2% 0 2%;
+}
+.header h1 {
+  font-weight: 700;
+}
+.v-content .header{
+  margin-left: 50px;
+  margin-top: 12rem;
+}
+.m-content .header{
+  margin-left: 50px;
+  margin-top: 5rem;
+}
+
+.desc{
+  margin-top: 3rem;
+  margin-left: 13rem;
+  font-size: 17px;
+}
+.about {
+  position: relative;
+  display: inline-block;
+}
+
+.about::after {
+  content: "";
+  display: block;
+  width: 30%;
+  height: 4px;
+  background-color: green;
+  position: absolute;
+  left: 16%;
+  bottom: -5px;
+  transform: translateX(-50%);
+}
+
+
+
+@media (max-width: 768px) {
+  .vision {
+    padding: 30px 10px;
+  }
+  .header h1 {
+    font-size: 2rem;
+  }
+  .vision {
+    margin-top: 150px;
+  }
+  .desc{
+    margin-top: 3rem;
+    margin-left: 1rem;
+    font-size: 17px;
+  }
+}
+
+
+@media (max-width: 425px) {
+  .vision {
+    padding: 30px 10px;
+  }
+  .header h1 {
+    font-size: 2rem;
+  }
+  .vision {
+    margin-top: 150px;
+  }
+}
+
+.footer {
+  margin-top: 10%;
+  background: #222;
+  color: white;
+  padding: 40px 0;
+  text-align: center; /* Centers the content */
+}
+
+.footer .container {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  flex-direction: column; /* Stacks items vertically */
+}
+
+.footer-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers the text and image */
+  text-align: center;
+}
+
+.footer-row img {
+  margin-bottom: 10px; /* Space between image and text */
+}
+
+.foot {
+  font-size: 18px;
+  font-weight: bold;
+  max-width: 500px; /* Limits width for better readability */
+}
+
+.copyright {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #aaa;
+}
+.footer .descrip {
+  line-height: 0.3;
+}
+/* @media (max-width: 357px) {
+  #navbar-text {
+    line-height: 1;
+  }
+} */
+
+.social-icon {
+  font-size: 20px; /* Adjust icon size */
+  color: #ffffff; /* Light gray color */
+  margin: 10px;
+  transition: color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+/* Hover Effect - Turns Green */
+.social-icon:hover {
+  color: #47984e;
+}
+.footer a {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Inherit text color (removes blue) */
+}
+.footer .logo {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}

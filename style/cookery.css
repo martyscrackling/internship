@@ -1,0 +1,258 @@
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+.navbar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  transition: top 0.3s ease-in-out;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0) 100%
+  ) !important;
+  box-shadow: none;
+  z-index: 1000; /* Ensure it's above everything */
+}
+
+.navbar .nav-link,
+.navbar .navbar-brand,
+.navbar .navbar-toggler-icon {
+  color: white !important;
+}
+
+/* For dropdown items */
+.navbar .dropdown-menu {
+  background-color: white;
+}
+
+.navbar .dropdown-item {
+  color: green;
+}
+
+.navbar .dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+/* Navbar Styling */
+
+.navbar-brand img {
+  width: 60px;
+  transition: 0.3s;
+}
+.hidden-text {
+  margin-left: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  text-shadow: #222;
+}
+
+.show-text {
+  opacity: 1; /* Show text when scrolling */
+}
+
+.navbar-nav .nav-link {
+  margin-left: 20px; /* Adjust as needed */
+}
+
+@media (max-width: 990px) {
+  #navbar-text {
+    visibility: hidden;
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+}
+
+.course {
+  width: 100%;
+  height: 88vh;
+  position: relative; /* Ensures .content is positioned relative to this */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("../imgs/cookery/3.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.first .content {
+  position: absolute; /* Makes it overlay */
+  top: 50%; /* Adjust as needed */
+  left: 50%;
+  transform: translate(-50%, 30%); /* Centers the content */
+  background-color: rgb(255, 255, 255);
+  width: 89.3%;
+  height: auto;
+  z-index: 2; /* Ensures it's on top */
+  display: flex;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+  
+}
+
+.first .about {
+  margin: 30px;
+}
+.header {
+  font-size: 50px;
+  font-weight: 800;
+  position: relative;
+  display: inline-block;
+}
+.header::after {
+  content: "";
+  display: block;
+  width: 50%; /* Set the underline width */
+  height: 6px; /* Thickness */
+  background: linear-gradient(to right, rgba(0, 100, 0, 1), rgba(0, 255, 0, 0));
+  position: absolute;
+  left: 26%;
+  bottom: -2px; /* Adjust spacing below text */
+  transform: translateX(-50%);
+}
+.about .courseid{
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+.duration{
+  margin-top: 27px;
+}
+
+
+
+
+
+/* SECOND */
+
+.second{
+  /* background-color: rgb(199, 253, 199); */
+  width: 100%;
+  height: 43vh;
+}
+
+
+
+
+
+/* THIRD */
+.third{
+  width: 100%;
+  height: 105vh;
+}
+/* Marquee Container */
+.marquee-container {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  padding: 10px 0;
+  margin-top: 50px;
+}
+
+/* Marquee Animation */
+.marquee {
+  display: flex;
+  animation: marquee 40s linear infinite;
+  width: fit-content;
+}
+
+.image-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 250px;
+  height: 150px;
+  overflow: hidden;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Crops image while maintaining aspect ratio */
+  display: block;
+}
+
+/* Green Gradient Overlay */
+.image-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    hsla(137, 12%, 59%, 0.311),
+    hsla(144, 64%, 11%, 0.689)
+  );
+  mix-blend-mode: multiply; /* Blends gradient with the image */
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Smooth Infinite Marquee Effect */
+@keyframes marquee {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 50px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+  /* background: rgba(0, 0, 0, 0.5); */
+  padding: 10px 20px;
+  border-radius: 10px;
+  z-index: 2; /* Ensures it stays above the marquee */
+}
+
+
+.obj-info {
+  width: 80%;
+  margin: 40px auto;
+  font-family: "Poppins", sans-serif;
+  color: #333;
+}
+
+.obj-info .content {
+  padding: 20px;
+}
+
+.obj-info .obj {
+  font-size: 18px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+.obj-info ul {
+  padding-left: 25px;
+}
+
+.obj-info ul li {
+  margin-bottom: 10px;
+  list-style: none;
+  position: relative;
+  padding-left: 20px;
+  font-weight: 500;
+  color: #444;
+}
+
+.obj-info ul li::before {
+  content: "•"; /* Custom bullet */
+  position: absolute;
+  left: 0;
+  color: #2c7be5;
+  font-size: 20px;
+  font-weight: bold;
+}

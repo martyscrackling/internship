@@ -1,0 +1,179 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f5f5f5; /* Light gray background */
+}
+
+.register-box, .login-box {
+    width: 90%; /* Adjust width for smaller screens */
+    max-width: 440px; /* Maintain max width */
+    height: auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.register-header, .login-header {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.register-header header, .login-header header {
+    color: #333;
+    font-size: 30px; /* Adjusted for better responsiveness */
+    font-weight: 700;
+}
+
+.input-row {
+    display: flex;
+    flex-direction: column; /* Stack inputs on small screens */
+    gap: 10px; /* Space between First Name & Last Name */
+    align-items: center;
+}
+
+.input-box {
+    flex: 1;
+    min-width: 150px; /* Prevents shrinking too much */
+    width: 100%; /* Ensure inputs take full width */
+}
+
+.input-field {
+    width: 100%;
+    height: 45px; /* Adjusted for smaller screens */
+    font-size: 14px;
+    padding: 0 15px;
+    margin-bottom: 7px;
+    border-radius: 25px;
+    border: 1px solid #ddd;
+    box-shadow: 0px 3px 6px rgba(0,0,0,0.05);
+    transition: all 0.3s ease-in-out;
+}
+
+.input-field:focus {
+    border-color: #47984e;
+    box-shadow: 0px 0px 8px rgba(71, 152, 78, 0.3);
+    outline: none;
+}
+
+::placeholder {
+    font-weight: 500;
+    color: #666;
+}
+
+.required {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.input-submit {
+    margin-top: 30px;
+}
+
+.submit-btn {
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    width: 100%;
+    height: 50px;
+    background: #47984e;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.submit-btn:hover {
+    background: #357a3a;
+    transform: scale(1.05);
+}
+
+.sign-in-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.sign-in-link a {
+    color: #47984e;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.sign-in-link a:hover {
+    text-decoration: underline;
+}
+
+
+
+/* Responsive Design */
+@media (min-width: 600px) {
+    .register-box, .login-box {
+        width: 70%;
+    }
+}
+
+@media (min-width: 900px) {
+    .register-box, .login-box {
+        width: 440px;
+    }
+
+    .input-row {
+        flex-direction: row;
+    }
+}
+
+
+
+.back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #fff;
+    border: none;
+    padding: 10px;
+    font-size: 20px;
+    color: #47984e;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    width: 40px;
+    height: 40px;
+    text-decoration: none;
+
+}
+
+.back-btn:hover {
+    background: #f0f0f0;
+    transform: scale(1.1);
+}
+
+.back-btn i {
+    transition: color 0.3s;
+}
+
+.back-btn:hover i {
+    color: #357a3a;
+}
