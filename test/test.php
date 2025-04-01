@@ -1,5 +1,9 @@
-<?php 
-    session_start();
-?>
-<h1>hello user chat us now</h1>
-<a href="../auth/logout.php">Logout</a>
+<?php foreach ($announcement as $ann): ?>
+  <div class="skills__data">
+    <div class="skills__titles">
+    <h3 class="skills__name"><?php echo ($ann["title"]); ?></h3>
+    </div>
+  <div class="skills__bar">
+                             </div>
+                         </div>
+<?php endforeach; ?>

@@ -121,6 +121,4 @@
     </div><!-- End Third -->
 
 </section>
-<section class="services white relative">
 
-</section>

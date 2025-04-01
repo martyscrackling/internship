@@ -1,92 +1,82 @@
+<?php
+    require_once "../classes/announcement.class.php";
+
+    $objAnnouncement = new Announcements;
+    $announcement = $objAnnouncement->call_announcements();
+
+?>
+
 <div class="button">
     <a href="#about" id="scrollToSecond"><i class="fas fa-arrow-up"></i></a>
-  </div>
+</div>
+
 <section id="about" class="second relative section">
     <div class="container">
         <div class="row gy-4">
             <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
-                <h3 class="about">About Us</h3>
-                <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium laboriosam tempora minima nulla eos excepturi nostrum id similique voluptate at ipsum deleniti omnis cumque exercitationem blanditiis earum aliquid dolorum, dolores vitae veniam? Ipsa similique vel at quo nesciunt aut praesentium quod aperiam ex sunt, quasi iste necessitatibus laborum fugiat explicabo!
-                </p>
+                <h3 class="about">Announcements</h3>
             </div>
-            <!-- Carousel Section -->
-            <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="100">
-                <div id="teamCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-                    <!-- Carousel Items -->
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="../photos/orientation.jpg" class="d-block w-100 rounded shadow carousel-img" alt="Group Image">
+            <div class="col-12 position-relative">
+                <!-- Scroll Left Button -->
+                <button class="scroll-button scroll-left" id="scrollLeft" style="display: none;"><i class="fas fa-chevron-left"></i></button>
+                
+                <div class="news-container" id="newsContainer">
+                    <div class="row flex-nowrap">
+                        <?php foreach ($announcement as $ann): ?>
+                        <div class="col-md-4 wrap-card">
+                            <div class="card news-card">
+                             <a href="announcement.php?announcement_id=<?php echo $ann['announcement_id']; ?>" class="announcement-link">
+                                    <img src="../imgs/cetwmsu.png" alt="News Image">
+                                    <div class="news-content">
+                                        <div class="combine">
+                                            <p class="news-category"><?php echo ($ann["a_title"]); ?></p>
+                                            <p class="date"><i class="fas fa-calendar-alt"></i> <?php echo ($ann["a_date"]); ?></p>
+                                        </div>
+                                        <p class="news-title"><?php echo ($ann["a_description"]); ?></p>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
-                        <div class="carousel-item">
-                            <img src="../photos/welding1.jpg" class="d-block w-100 rounded shadow carousel-img" alt="Group Image">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../photos/practicalelectricity1.jpg" class="d-block w-100 rounded shadow carousel-img" alt="Group Image">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../photos/plumbing1.jpg" class="d-block w-100 rounded shadow carousel-img" alt="Group Image">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../photos/graduation.jpg" class="d-block w-100 rounded shadow carousel-img" alt="Group Image">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../photos/gardening.jpg" class="d-block w-100 rounded shadow carousel-img" alt="Group Image">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../photos/foodprocessing.jpg" class="d-block w-100 rounded shadow carousel-img" alt="Group Image">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../photos/computerrepair.jpg" class="d-block w-100 rounded shadow carousel-img" alt="Group Image">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../photos/breadpastry.jpg" class="d-block w-100 rounded shadow carousel-img" alt="Group Image">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../photos/cookery.jpg" class="d-block w-100 rounded shadow carousel-img" alt="Group Image">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../photos/beauty.jpg" class="d-block w-100 rounded shadow carousel-img" alt="Group Image">
-                        </div>
+                        <?php endforeach; ?>
                     </div>
-                    <!-- Controls -->
-                    <button class="carousel-control-prev" type="button" data-bs-target="#teamCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#teamCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
                 </div>
+                
+                <!-- Scroll Right Button -->
+                <button class="scroll-button scroll-right" id="scrollRight"><i class="fas fa-chevron-right"></i></button>
             </div>
-
         </div>
     </div>
 </section>
+
 <script>
-    document.getElementById("scrollToSecond").addEventListener("click", function(event) {
-        event.preventDefault(); // Prevent default anchor behavior
-        document.querySelector(".second").scrollIntoView({ behavior: "smooth" });
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".news-title").forEach(title => {
+            let words = title.innerText.split(" ");
+            if (words.length > 15) {
+                title.innerText = words.slice(0, 15).join(" ") + "...";
+            }
+        });
+
+        // Scroll functionality
+        const scrollContainer = document.getElementById("newsContainer");
+        const scrollLeft = document.getElementById("scrollLeft");
+        const scrollRight = document.getElementById("scrollRight");
+
+        function updateScrollButtons() {
+            scrollLeft.style.display = scrollContainer.scrollLeft > 0 ? "block" : "none";
+            scrollRight.style.display = (scrollContainer.scrollLeft + scrollContainer.clientWidth) < scrollContainer.scrollWidth ? "block" : "none";
+        }
+
+        scrollContainer.addEventListener("scroll", updateScrollButtons);
+
+        scrollLeft.addEventListener("click", () => {
+            scrollContainer.scrollBy({ left: -300, behavior: "smooth" });
+        });
+
+        scrollRight.addEventListener("click", () => {
+            scrollContainer.scrollBy({ left: 300, behavior: "smooth" });
+        });
+
+        updateScrollButtons(); // Initial check
     });
-</script>
-<script>
-  let lastScrollTop = 0;
-  const scrollButton = document.querySelector(".button");
-
-  window.addEventListener("scroll", function () {
-    let scrollTop = window.scrollY || document.documentElement.scrollTop;
-
-    if (scrollTop < lastScrollTop) {
-      // Scrolling down, show button
-      scrollButton.style.opacity = "1";
-      scrollButton.style.pointerEvents = "auto";
-    } else {
-      // Scrolling up, hide button
-      scrollButton.style.opacity = "0";
-      scrollButton.style.pointerEvents = "none";
-    }
-
-    lastScrollTop = scrollTop;
-  });
 </script>

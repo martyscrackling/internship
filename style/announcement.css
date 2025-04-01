@@ -1,0 +1,223 @@
+* {
+    font-family: "Poppins", sans-serif;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+}
+  
+  .navbar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    transition: top 0.3s ease-in-out;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ) !important;
+    box-shadow: none;
+    z-index: 1000; /* Ensure it's above everything */
+  }
+  
+  .navbar .nav-link,
+  .navbar .navbar-brand,
+  .navbar .navbar-toggler-icon {
+    color: white !important;
+  }
+  
+  /* For dropdown items */
+  .navbar .dropdown-menu {
+    background-color: white;
+  }
+  
+  .navbar .dropdown-item {
+    color: green;
+  }
+  
+  .navbar .dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Dropdown Animation */
+  .navbar-nav .dropdown-menu {
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transform: translateY(10px);
+    opacity: 0;
+    visibility: hidden;
+    display: block; /* Ensures smooth animation */
+  }
+  
+  /* Show dropdown on hover */
+  .navbar-nav .dropdown:hover .dropdown-menu {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Dropdown item hover effect */
+  .navbar-nav .dropdown-menu .dropdown-item {
+    transition: background-color 0.3s ease-in-out, padding-left 0.3s ease-in-out;
+  }
+  
+  /* Hover effect: changes background & adds left padding */
+  .navbar-nav .dropdown-menu .dropdown-item:hover {
+    padding-left: 15px; /* Slight movement to the right */
+    color: #0b4103; /* Reddish text color */
+  }
+  
+  
+  /* Navbar Styling */
+  
+  .navbar-brand img {
+    width: 60px;
+    transition: 0.3s;
+  }
+  .hidden-text {
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.5s ease-in-out;
+    margin-left: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    text-shadow: #222;
+    white-space: nowrap; /* Prevent text from breaking */
+  }
+  
+  .show-text {
+    opacity: 1; /* Show text when scrolling */
+  }
+  
+  .navbar-nav .nav-link {
+    margin-left: 20px; /* Adjust as needed */
+  }
+  
+  @media (max-width: 990px) {
+    #navbar-text {
+      visibility: hidden;
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+    }
+  }
+
+
+
+
+
+/* ANNOUNCEMENT */
+
+.announcement{
+  margin-top: 6%;
+  padding-bottom: 10%;
+}
+.image-container {
+  width: 100%;
+  height: 300px; /* Set a fixed height */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the area without stretching */
+}
+
+
+.container {
+    padding: 30px;
+}
+
+.content h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #222;
+}
+
+.content .date {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.content-text p {
+    line-height: 1.7;
+    font-size: 1.1rem;
+    color: #444;
+    margin-bottom: 15px;
+}
+
+.image-container img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.image-container img:hover {
+    transform: scale(1.05);
+}
+.sidebar {
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: none;
+  padding: 20px;
+}
+
+.sidebar-title {
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 15px;
+  padding-bottom: 0;
+}
+
+
+.announcement-list {
+  margin: 0;
+  padding: 0;
+}
+
+.announcement-item {
+  padding: 15px 0;
+  margin: 0;
+  display: flex;
+  align-items: flex-start;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.announcement-item:first-child {
+  border-top: 2px solid #953636;
+}
+
+.arrow-icon {
+  color: #666;
+  margin-right: 10px;
+  font-weight: normal;
+  min-width: 20px;
+}
+
+.announcement-link {
+  color: #555;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.announcement-link:hover {
+  color: #333;
+}
+.main-container {
+  background: #ffffff;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  padding: 30px;
+}
+

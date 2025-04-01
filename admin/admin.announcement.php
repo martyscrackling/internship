@@ -1,4 +1,41 @@
-<?php require_once "admin-chopdown/head.php"?>
+<?php 
+session_start();
+require_once "admin-chopdown/head.php";
+require_once '../tools/clean.php';
+require_once "../classes/announcement.class.php";
+
+$objAnnouncement = new Announcements;
+$ann = $objAnnouncement->call_announcements();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+    $a_title = isset($_POST['a_title']) ? clean_input($_POST['a_title']) : '';
+    $a_description = isset($_POST['a_description']) ? clean_input($_POST['a_description']) : '';
+    $a_date = date('F j, Y'); // Store as "April 1, 2025"
+
+    $objAnnouncement->a_title = $a_title;
+    $objAnnouncement->a_description = $a_description;
+    $objAnnouncement->a_date = $a_date;
+    
+    if ($objAnnouncement->addAnnouncement()) {
+        echo '
+        <div class="alert alert-success alert-dismissible fade show" style="margin-left: 18%; max-width: 81%;" role="alert">
+            <strong>Success!</strong> Announcement posted successfully.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        ';
+    } else {
+        echo '
+        <div class="alert alert-danger alert-dismissible fade show ms-lg-5 ms-md-4" role="alert">
+            <strong>Error!</strong> Failed to post announcement.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        ';
+    }
+}
+
+?>
+
+
 <div class="navbar-custom">
     <header class="px-1 shadow-sm">
         <div class="container-fluid d-flex justify-content-between">
@@ -62,36 +99,40 @@
         </div>
 
         <div class="row justify-content-center">
-                 <!-- add announcement 1 -->
+    <!-- add announcement 1 -->
     <div class="col-12 mb-4 d-flex">
         <div class="card shadow-lg border-0 rounded-4 h-100 d-flex flex-column w-100">
-            <div class="card-body flex-grow-1">
-                <div class="d-flex align-items-center mb-3">
-                    <img src="../imgs/descd.png" alt="Admin" class="rounded-circle border me-3" width="55" height="55">
-                    <div>
-                        <h6 class="mb-1 fw-bold text-dark">Admin Team</h6>
-                        <small class="text-muted">March 24, 2025</small>
+            <form method="POST" action="">
+                <div class="card-body flex-grow-1">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="../imgs/descd.png" alt="Admin" class="rounded-circle border me-3" width="55" height="55">
+                        <div>
+                            <h6 class="mb-1 fw-bold text-dark">Admin Team</h6>
+                            <small class="text-muted"><?php echo $a_date; ?></small>
+                        </div>
+                    </div>
+                    <!-- Textarea for announcement -->
+                    <input type="text" class="form-control mb-2" name="a_title" placeholder="Title">
+                    <textarea class="form-control mb-2" name="a_description" rows="4" placeholder="Description"></textarea>
+                    
+                    <!-- Icons for adding images -->
+                    <div class="d-flex align-items-center"> 
+                        <label class="btn btn-outline-primary btn-sm me-2">
+                            <i class="bi bi-image"></i> Add Image
+                            <input type="file" class="d-none" accept="image/*">
+                        </label>
+                        <label class="btn btn-outline-secondary btn-sm">
+                            <i class="bi bi-camera"></i> Take Photo
+                            <input type="file" class="d-none" accept="image/*" capture="camera">
+                        </label>
                     </div>
                 </div>
-                <!-- Textarea for announcement -->
-                <textarea class="form-control mb-2" rows="4" placeholder="Write your announcement here..."></textarea>
-                <!-- Icons for adding images -->
-                <div class="d-flex align-items-center">
-                    <label class="btn btn-outline-primary btn-sm me-2">
-                        <i class="bi bi-image"></i> Add Image
-                        <input type="file" class="d-none" accept="image/*">
-                    </label>
-                    <label class="btn btn-outline-secondary btn-sm">
-                        <i class="bi bi-camera"></i> Take Photo
-                        <input type="file" class="d-none" accept="image/*" capture="camera">
-                    </label>
+                <div class="card-footer bg-light d-flex justify-content-end">
+                    <button type="submit" class="btn btn-success btn-sm px-4 fw-semibold">
+                        <i class="bi bi-send"></i> Post
+                    </button>
                 </div>
-            </div>
-            <div class="card-footer bg-light d-flex justify-content-end">
-                <button class="btn btn-success btn-sm px-4 fw-semibold">
-                    <i class="bi bi-send"></i> Post
-                </button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -105,65 +146,37 @@
             <h4 class="page-title fw-bold">Announcements:</h4>
         </div>
 
-        <div class="row justify-content-center">
-            <!-- Announcement 1 -->
-            <div class="col-12 col-md-6 mb-4 d-flex">
-                <div class="card shadow-lg border-0 rounded-4 h-100 d-flex flex-column">
-                    <!-- <div class="card-header bg-success text-white rounded-top-2">
-                        <h5 class="mb-0 fw-semibold">🚧 System Maintenance Notice</h5>
-                    </div> -->
-                    <div class="card-body flex-grow-1">
-                        <div class="d-flex align-items-center mb-3">
-                            <img src="../imgs/descd.png" alt="Admin" class="rounded-circle border me-3" width="55" height="55">
-                            <div>
-                                <h6 class="mb-1 fw-bold text-dark">Admin Team</h6>
-                                <small class="text-muted">March 24, 2025</small>
-                            </div>
-                        </div>
-                        <p class="text-secondary">
-                            ⚠️ <strong>Scheduled Maintenance:</strong> Our platform will be under maintenance on 
-                            <strong>March 28, 2025</strong>, from <strong>12:00 AM to 4:00 AM</strong>. Expect temporary service interruptions. 
-                            We apologize for any inconvenience.
-                        </p>
-                        <img src="../imgs/descd.jpeg" alt="" style="height:200px;">
-                    </div>
-                    <div class="card-footer bg-light d-flex justify-content-around">
-                        <button class="btn btn-warning btn-sm px-4 fw-semibold">
-                            <i class="bi bi-pencil-square"></i> Edit
-                        </button>
-                        <button class="btn btn-danger btn-sm px-4 fw-semibold">
-                            <i class="bi bi-trash"></i> Delete
-                        </button>
+        <div class="row justify-content-center align-items-stretch">
+    <?php foreach ($ann as $a): ?>
+    <div class="col-12 col-md-6 mb-4 d-flex">
+        <div class="card shadow-lg border-0 rounded-4 d-flex flex-column announcement-card">
+            <div class="card-body flex-grow-1 announcement-body">
+                <div class="d-flex align-items-center mb-3">
+                    <img src="../imgs/descd.png" alt="Admin" class="rounded-circle border me-3" width="55" height="55">
+                    <div>
+                        <h6 class="mb-1 fw-bold text-dark">Admin Team</h6>
+                        <small class="text-muted"><?php echo $a["a_date"]; ?></small>
                     </div>
                 </div>
+                <p class="text-secondary announcement-text">
+                    <strong><?php echo $a["a_title"]; ?></strong> 
+                    <?php echo substr($a["a_description"], 0, 255) . (strlen($a["a_description"]) > 255 ? '...' : ''); ?>
+                </p>
+                <img src="../imgs/descd.jpeg" alt="" class="img-fluid">
             </div>
-
-            <!-- Announcement 2 -->
-            <div class="col-12 col-md-6 mb-4 d-flex">
-                <div class="card shadow-lg border-0 rounded-4 h-100 d-flex flex-column">
-                    <div class="card-body flex-grow-1">
-                        <div class="d-flex align-items-center mb-3">
-                            <img src="../imgs/descd.png" alt="Admin" class="rounded-circle border me-3" width="55" height="55">
-                            <div>
-                                <h6 class="mb-1 fw-bold text-dark">Admin Team</h6>
-                                <small class="text-muted">March 24, 2025</small>
-                            </div>
-                        </div>
-                        <p class="text-secondary">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat dolorum animi, atque odit obcaecati nobis eius repellendus qui minima ducimus cumque ipsa, nihil debitis! Sint non voluptates magnam libero labore?
-                        </p>
-                    </div>
-                    <div class="card-footer bg-light d-flex justify-content-around">
-                        <button class="btn btn-warning btn-sm px-4 fw-semibold">
-                            <i class="bi bi-pencil-square"></i> Edit
-                        </button>
-                        <button class="btn btn-danger btn-sm px-4 fw-semibold">
-                            <i class="bi bi-trash"></i> Delete
-                        </button>
-                    </div>
-                </div>
+            <div class="card-footer bg-light d-flex justify-content-around announcement-footer">
+                <button class="btn btn-warning btn-sm px-4 fw-semibold">
+                    <i class="bi bi-pencil-square"></i> Edit
+                </button>
+                <button class="btn btn-danger btn-sm px-4 fw-semibold">
+                    <i class="bi bi-trash"></i> Delete
+                </button>
             </div>
         </div>
+    </div>
+    <?php endforeach; ?>
+</div>
+
     </div>
 </div>
 
@@ -185,7 +198,28 @@
 });
 
 </script>
-
+<script>
+    // Set the date input to today's date by default
+    document.addEventListener("DOMContentLoaded", function() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+        const day = String(today.getDate()).padStart(2, '0');
+        
+        const formattedDate = `${year}-${month}-${day}`;
+        document.getElementById('date').value = formattedDate;
+    });
+</script>
+<script>
+   setTimeout(function() {
+    var alert = document.querySelector('.alert');
+    if (alert) {
+        let bsAlert = new bootstrap.Alert(alert);
+        bsAlert.close();
+    }
+}, 3000); // 3000ms = 3 seconds
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../vendor/bootstrap-5.3.3/js/bootstrap.bundle.min.js"></script>
 <script src="../vendor/jQuery-3.7.1/jquery-3.7.1.min.js"></script>
 <script src="../vendor/chartjs-4.4.5/chart.js"></script>
