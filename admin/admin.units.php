@@ -18,8 +18,10 @@
     $objUnits->u_description = $u_description;
     $objUnits->u_functions = $u_functions;
 
-    if ($objUnits->addUnit()) {
-        header("Location: admin.addsteps.php");
+    $unit_id = $objUnits->addUnit();
+
+    if ($unit_id != false) {
+        header("Location: admin.addsteps.php?unit_id=$unit_id");
         exit();
     } else {
         echo '

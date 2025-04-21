@@ -16,7 +16,7 @@
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $enrollArray = $_POST['e_steps'];
         $objEnroll->e_steps = $enrollArray;
-        
+        $objEnroll->unit_id = $_GET['unit_id'];
         
         if ($objEnroll->addSteps()) {
             header("Location: admin.course.php");

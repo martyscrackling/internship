@@ -14,21 +14,26 @@
         }
 
         function addUnit(){
-            $sql = "INSERT INTO units (u_title, u_description, u_functions) VALUES (:u_title, :u_description, :u_functions)";
+            $sql = "INSERT INTO units (u_title, u_description, u_functions) 
+                    VALUES (:u_title, :u_description, :u_functions)";
+            
             $query = $this->conn->prepare($sql);
             $query->bindParam('u_title', $this->u_title);
             $query->bindParam('u_description', $this->u_description);
             $query->bindParam('u_functions', $this->u_functions);
-
+        
             if($query->execute()){
-                return true;
-            }else {
+                // Return the ID of the newly inserted row
+                $unit_id = $this->conn->lastInsertId();
+                return $unit_id;
+            } else {
                 return false;
             }
         }
+        
 
         function showAllUnits(){
-            $sql = "SELECT * FROM units"; 
+            $sql = "SELECT * FROM units ORDER BY unit_id DESC"; 
             $query = $this->conn->prepare($sql);
 
             $query->execute();
