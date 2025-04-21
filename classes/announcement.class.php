@@ -37,7 +37,7 @@
         }
 
         function call_announcements(){
-            $sql = "SELECT * FROM announcements";
+            $sql = "SELECT * FROM announcements ORDER BY a_date DESC";
             $query = $this->conn->prepare($sql);
 
             $query->execute();

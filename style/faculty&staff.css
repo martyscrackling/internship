@@ -1,0 +1,375 @@
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+.navbar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  transition: top 0.3s ease-in-out;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0) 100%
+  ) !important;
+  box-shadow: none;
+  z-index: 1000; /* Ensure it's above everything */
+}
+
+.navbar .nav-link,
+.navbar .navbar-brand,
+.navbar .navbar-toggler-icon {
+  color: white !important;
+}
+
+/* For dropdown items */
+.navbar .dropdown-menu {
+  background-color: white;
+  min-width: 180px; 
+  padding: 0.5rem 0;
+}
+
+.navbar .dropdown-item {
+  color: green;
+  padding: 8px 12px;  /* Reduce padding */
+  font-size: 14px;    /* Smaller font size */
+}
+
+.navbar .dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Dropdown Animation */
+.navbar-nav .dropdown-menu {
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transform: translateY(10px);
+  opacity: 0;
+  visibility: hidden;
+  display: block; /* Ensures smooth animation */
+}
+
+/* Show dropdown on hover */
+.navbar-nav .dropdown:hover .dropdown-menu {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Dropdown item hover effect */
+.navbar-nav .dropdown-menu .dropdown-item {
+  transition: background-color 0.3s ease-in-out, padding-left 0.3s ease-in-out;
+}
+
+/* Hover effect: changes background & adds left padding */
+.navbar-nav .dropdown-menu .dropdown-item:hover {
+  padding-left: 15px; 
+  color: #0b4103; 
+}
+
+
+/* Navbar Styling */
+
+.navbar-brand img {
+  width: 60px;
+  transition: 0.3s;
+}
+.hidden-text {
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.5s ease-in-out;
+  margin-left: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  text-shadow: #222;
+  white-space: nowrap; /* Prevent text from breaking */
+}
+
+.show-text {
+  opacity: 1; /* Show text when scrolling */
+}
+
+.navbar-nav .nav-link {
+  margin-left: 20px; /* Adjust as needed */
+}
+#navbar-text {
+  font-size: 18px; /* slightly bigger */
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 2px #000;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (min-width: 1200px) {
+  #navbar-text {
+    font-size: 20px; 
+    max-width: 500px;
+  }
+}
+
+.dropdown-submenu {
+  position: relative;
+}
+
+
+.dropdown-submenu .sub-menu {
+  min-width: 160px; 
+  padding: 0.5rem 0;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  z-index: 1000;
+}
+
+
+/* .dropdown-submenu:hover > .sub-menu {
+  display: block;
+}
+
+.dropdown-submenu > .dropdown-item::after {
+  content: "\f105"; 
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  margin-left: 8px;
+  font-size: 12px;
+} */
+
+
+
+@media (max-width: 990px) {
+  #navbar-text {
+    visibility: hidden;
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+}
+
+  .header {
+    
+    font-size: 50px;
+    font-weight: 800;
+    position: relative;
+    display: inline-block;
+    margin-left: 0;
+    
+  }
+  
+  .header::after {
+    content: "";
+    display: block;
+    width: 60%; 
+    height: 6px;
+    background: linear-gradient(
+      to right,
+      rgba(0, 255, 0, 0),    
+      rgba(0, 100, 0, 1),     
+      rgba(0, 255, 0, 0)      
+    );
+    position: absolute;
+    left: 20%;
+    bottom: -15px;
+  }
+
+
+
+
+
+
+  .member-card {
+    padding: 12px;
+    transform: scale(0.95);
+  }
+  
+  .member-pic {
+    position: relative;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    display: block;
+  }
+  
+  .member-pic img {
+    width: 100%;
+    display: block;
+  }
+  
+  .member-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 10px 0;
+  }
+  
+  .member-info h4 {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  
+  .member-info span {
+    font-size: 1rem;
+  }
+  
+
+
+  
+  .section-title {
+    margin-top: 5%;
+    text-align: center;
+    padding: 30px 0;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .section-title h2 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 0;
+  position: relative;
+  z-index: 2;
+}
+
+
+
+  .team .member {
+    position: relative;
+  }
+  
+  .team .member .pic {
+    overflow: hidden;
+    margin-bottom: 50px;
+  }
+  
+  .team .member .member-info {
+    background-color: #ffffff; 
+    color: #333333; 
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    bottom: -50px;
+    left: 20px;
+    right: 20px;
+    padding: 20px 15px;
+    overflow: hidden;
+    transition: 0.5s;
+  }
+    
+  .team .member h4 {
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 16px;
+    position: relative;
+    padding-bottom: 10px;
+  }
+  
+  .team .member h4::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 50px;
+    height: 1px;
+    background: #cccccc; 
+    bottom: 0;
+    left: 0;
+  }
+  
+  .team .member span {
+    font-style: italic;
+    display: block;
+    font-size: 13px;
+    color: #777777; 
+  }
+  
+  .team .member .social {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+  }
+  
+  .team .member .social a {
+    transition: color 0.3s;
+    color: #999999;
+  }
+  
+  .team .member .social a:hover {
+    color: #28a745;
+  }
+  
+  .team .member .social i {
+    font-size: 16px;
+    margin: 0 2px;
+  }
+  
+
+
+
+  /* FOOTER */
+  .footer {
+    background: #222;
+    color: white;
+    padding: 40px 0;
+    text-align: center;
+  }
+  
+  .footer .container {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    flex-direction: column; 
+  }
+  
+  .footer-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .footer-row img {
+    margin-bottom: 10px; 
+  }
+  
+  .foot {
+    font-size: 18px;
+    font-weight: bold;
+    max-width: 500px; 
+  }
+  
+  .copyright {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #aaa;
+  }
+  .footer .descrip {
+    line-height: 0.3;
+  }
+
+  
+  .social-icon {
+    font-size: 20px; 
+    color: #ffffff;
+    margin: 10px;
+    transition: color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+  }
+
+  .social-icon:hover {
+    color: #47984e;
+  }
+  .footer a {
+    text-decoration: none; 
+    color: inherit; 
+  }
+  .footer .logo {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+  

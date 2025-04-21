@@ -94,15 +94,6 @@
                                         <p class="how mt-2 fw-bold">Description</p>
                                         <input class="form-control mb-3" name="u_title" rows="2" placeholder="Name of course" required></input>
                                         <textarea class="form-control mb-2" name="u_description" rows="4" placeholder="Describe the course" required></textarea>
-                                        <p class="how mt-5 fw-bold">Input 5 steps on how to enroll</p>
-                                        <input class="form-control mb-3" name="u_title" rows="2" placeholder="Step 1" required></input>
-                                        <input class="form-control mb-3" name="u_title" rows="2" placeholder="Step 2" required></input>
-                                        <input class="form-control mb-3" name="u_title" rows="2" placeholder="Step 3" required></input>
-                                        <input class="form-control mb-3" name="u_title" rows="2" placeholder="Step 4" required></input>
-                                        <input class="form-control mb-3" name="u_title" rows="2" placeholder="Step 5" required></input>
-                                        <p class="how mt-2 fw-bold">Functions</p>
-                                        <textarea class="form-control mb-2" name="u_description" rows="4" placeholder="What is the function of this unit" required></textarea>
-                                        <p class="how mt-2 fw-bold">Personel</p>
                                         <div class="d-flex justify-content-end mt-4 mb-0">
                                             <input type="submit" class="btn btn-success btn-sm" name="submit" value="Submit">
                                         </div>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION["user_id"])) {
-    header("Location: ../dashboard/descd.php");
+    header("Location: ../admin/admin.dashboard.php");
 }
 
 require_once '../classes/user.class.php';

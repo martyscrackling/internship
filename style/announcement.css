@@ -1,108 +1,156 @@
 * {
-    font-family: "Poppins", sans-serif;
-  }
-
-  body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #f4f7fc;
-    color: #333;
+  font-family: "Poppins", sans-serif;
 }
-  
-  .navbar {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    transition: top 0.3s ease-in-out;
-    background: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.7) 0%,
-      rgba(0, 0, 0, 0) 100%
-    ) !important;
-    box-shadow: none;
-    z-index: 1000; /* Ensure it's above everything */
+
+.navbar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  transition: top 0.3s ease-in-out;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0) 100%
+  ) !important;
+  box-shadow: none;
+  z-index: 1000; /* Ensure it's above everything */
+}
+
+.navbar .nav-link,
+.navbar .navbar-brand,
+.navbar .navbar-toggler-icon {
+  color: white !important;
+}
+
+/* For dropdown items */
+.navbar .dropdown-menu {
+  background-color: white;
+  min-width: 180px; 
+  padding: 0.5rem 0;
+}
+
+.navbar .dropdown-item {
+  color: green;
+  padding: 8px 12px;  /* Reduce padding */
+  font-size: 14px;    /* Smaller font size */
+}
+
+.navbar .dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Dropdown Animation */
+.navbar-nav .dropdown-menu {
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transform: translateY(10px);
+  opacity: 0;
+  visibility: hidden;
+  display: block; /* Ensures smooth animation */
+}
+
+/* Show dropdown on hover */
+.navbar-nav .dropdown:hover .dropdown-menu {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Dropdown item hover effect */
+.navbar-nav .dropdown-menu .dropdown-item {
+  transition: background-color 0.3s ease-in-out, padding-left 0.3s ease-in-out;
+}
+
+/* Hover effect: changes background & adds left padding */
+.navbar-nav .dropdown-menu .dropdown-item:hover {
+  padding-left: 15px; 
+  color: #0b4103; 
+}
+
+
+/* Navbar Styling */
+
+.navbar-brand img {
+  width: 60px;
+  transition: 0.3s;
+}
+.hidden-text {
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.5s ease-in-out;
+  margin-left: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  text-shadow: #222;
+  white-space: nowrap; /* Prevent text from breaking */
+}
+
+.show-text {
+  opacity: 1; /* Show text when scrolling */
+}
+
+.navbar-nav .nav-link {
+  margin-left: 20px; /* Adjust as needed */
+}
+#navbar-text {
+  font-size: 18px; /* slightly bigger */
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 2px #000;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (min-width: 1200px) {
+  #navbar-text {
+    font-size: 20px; /* larger on bigger screens */
+    max-width: 500px;
   }
-  
-  .navbar .nav-link,
-  .navbar .navbar-brand,
-  .navbar .navbar-toggler-icon {
-    color: white !important;
-  }
-  
-  /* For dropdown items */
-  .navbar .dropdown-menu {
-    background-color: white;
-  }
-  
-  .navbar .dropdown-item {
-    color: green;
-  }
-  
-  .navbar .dropdown-item:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-  }
-  
-  /* Dropdown Animation */
-  .navbar-nav .dropdown-menu {
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-    transform: translateY(10px);
-    opacity: 0;
+}
+/* Style for nested submenu */
+.dropdown-submenu {
+  position: relative;
+}
+
+
+/* Hide nested dropdown by default */
+.dropdown-submenu .sub-menu {
+  min-width: 160px; /* Set smaller width for nested dropdown */
+  padding: 0.5rem 0;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  z-index: 1000;
+}
+
+
+/* Show nested submenu on hover */
+.dropdown-submenu:hover > .sub-menu {
+  display: block;
+}
+
+.dropdown-submenu > .dropdown-item::after {
+  content: "\f105"; 
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900; 
+  margin-left: 8px;
+  font-size: 12px;
+}
+
+
+
+@media (max-width: 990px) {
+  #navbar-text {
     visibility: hidden;
-    display: block; /* Ensures smooth animation */
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
   }
-  
-  /* Show dropdown on hover */
-  .navbar-nav .dropdown:hover .dropdown-menu {
-    transform: translateY(0);
-    opacity: 1;
-    visibility: visible;
-  }
-  
-  /* Dropdown item hover effect */
-  .navbar-nav .dropdown-menu .dropdown-item {
-    transition: background-color 0.3s ease-in-out, padding-left 0.3s ease-in-out;
-  }
-  
-  /* Hover effect: changes background & adds left padding */
-  .navbar-nav .dropdown-menu .dropdown-item:hover {
-    padding-left: 15px; /* Slight movement to the right */
-    color: #0b4103; /* Reddish text color */
-  }
-  
-  
-  /* Navbar Styling */
-  
-  .navbar-brand img {
-    width: 60px;
-    transition: 0.3s;
-  }
-  .hidden-text {
-    opacity: 0; /* Initially hidden */
-    transition: opacity 0.5s ease-in-out;
-    margin-left: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    color: white;
-    text-shadow: #222;
-    white-space: nowrap; /* Prevent text from breaking */
-  }
-  
-  .show-text {
-    opacity: 1; /* Show text when scrolling */
-  }
-  
-  .navbar-nav .nav-link {
-    margin-left: 20px; /* Adjust as needed */
-  }
-  
-  @media (max-width: 990px) {
-    #navbar-text {
-      visibility: hidden;
-      position: absolute;
-      width: 0;
-      height: 0;
-      overflow: hidden;
-    }
-  }
+}
+
 
 
 

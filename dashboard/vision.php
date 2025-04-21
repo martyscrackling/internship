@@ -1,6 +1,6 @@
 <?php
     require_once "../dash_chopdown/dash_head.php";
-    require_once "../courses/nav_courses.php";
+    require_once "../dash_chopdown/dash_nav.php";
     ?>
 <head>
     <meta charset="UTF-8">

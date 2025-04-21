@@ -1,0 +1,421 @@
+* {
+    font-family: "Poppins", sans-serif;
+  }
+  
+  .navbar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    transition: top 0.3s ease-in-out;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ) !important;
+    box-shadow: none;
+    z-index: 1000; /* Ensure it's above everything */
+  }
+  
+  .navbar .nav-link,
+  .navbar .navbar-brand,
+  .navbar .navbar-toggler-icon {
+    color: white !important;
+  }
+  
+  /* For dropdown items */
+  .navbar .dropdown-menu {
+    background-color: white;
+    min-width: 180px; 
+    padding: 0.5rem 0;
+  }
+  
+  .navbar .dropdown-item {
+    color: green;
+    padding: 8px 12px;  /* Reduce padding */
+    font-size: 14px;    /* Smaller font size */
+  }
+  
+  .navbar .dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Dropdown Animation */
+  .navbar-nav .dropdown-menu {
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transform: translateY(10px);
+    opacity: 0;
+    visibility: hidden;
+    display: block; /* Ensures smooth animation */
+  }
+  
+  /* Show dropdown on hover */
+  .navbar-nav .dropdown:hover .dropdown-menu {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Dropdown item hover effect */
+  .navbar-nav .dropdown-menu .dropdown-item {
+    transition: background-color 0.3s ease-in-out, padding-left 0.3s ease-in-out;
+  }
+  
+  /* Hover effect: changes background & adds left padding */
+  .navbar-nav .dropdown-menu .dropdown-item:hover {
+    padding-left: 15px; 
+    color: #0b4103; 
+  }
+  
+  
+  /* Navbar Styling */
+  
+  .navbar-brand img {
+    width: 60px;
+    transition: 0.3s;
+  }
+  .hidden-text {
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.5s ease-in-out;
+    margin-left: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    text-shadow: #222;
+    white-space: nowrap; /* Prevent text from breaking */
+  }
+  
+  .show-text {
+    opacity: 1; /* Show text when scrolling */
+  }
+  
+  .navbar-nav .nav-link {
+    margin-left: 20px; /* Adjust as needed */
+  }
+  #navbar-text {
+    font-size: 18px; /* slightly bigger */
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 2px #000;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  @media (min-width: 1200px) {
+    #navbar-text {
+      font-size: 20px; 
+      max-width: 500px;
+    }
+  }
+
+  .dropdown-submenu {
+    position: relative;
+  }
+  
+  .dropdown-submenu .sub-menu {
+    min-width: 160px; 
+    padding: 0.5rem 0;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    z-index: 1000;
+  }
+  
+  
+  /* .dropdown-submenu:hover > .sub-menu {
+    display: block;
+  }
+  
+  .dropdown-submenu > .dropdown-item::after {
+    content: "\f105"; 
+    font-family: "Font Awesome 5 Free"; 
+    font-weight: 900; 
+    margin-left: 8px;
+    font-size: 12px;
+  } */
+  
+  
+  
+  @media (max-width: 990px) {
+    #navbar-text {
+      visibility: hidden;
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+    }
+  }
+
+  
+.course {
+    width: 100%;
+    height: 60vh;
+    position: relative; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url("../imgs/graduation.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  
+  .first .content {
+    position: absolute; 
+    top: 39%; 
+    left: 50%;
+    transform: translate(-50%, 30%); 
+    background-color: rgb(255, 255, 255);
+    width: 89%;
+    height: auto;
+    z-index: 2;
+    display: flex;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+    
+  }
+  
+  .first .about {
+    margin: 30px;
+  }
+  .header-wrapper {
+    text-align: center;
+  }
+  .header {
+    font-size: 50px;
+    font-weight: 800;
+    position: relative;
+    display: inline-block;
+    margin-left: 0;
+  }
+  
+  .header::after {
+    content: "";
+    display: block;
+    width: 50%; 
+    height: 6px;
+    background: linear-gradient(
+      to right,
+      rgba(0, 255, 0, 0),    
+      rgba(0, 100, 0, 1),     
+      rgba(0, 255, 0, 0)      
+    );
+    position: absolute;
+    left: 40;
+    bottom: -2px;
+  }
+  
+  
+  .about .courseid{
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+  .duration{
+    margin-top: 27px;
+  }  
+
+
+
+
+/* SECOND */
+.second {
+    padding-top: 20;
+    margin-top: 17%;
+    background-color: rgba(201, 201, 201, 0.255);
+    padding: 30px;
+
+  }
+  
+  .second .objectives {
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .second .content {
+    position: relative;
+    z-index: 2;
+    margin-right: -100px;
+    background: white;
+    padding: 20px;
+    width: 800px;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+    flex: 1;
+  }
+  
+  .second .img {
+    z-index: 1;
+  }
+  
+  .second .img img {
+    max-width: 500px;
+    height: auto;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+
+  @media (max-width: 768px) {
+    .second {
+      margin-top: 40rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center; 
+      text-align: center;  
+    }
+  
+    .second .objectives {
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+  
+    .second .content {
+      margin-right: 0;
+      width: 90%;
+      max-width: 90%;
+      margin-bottom: 20px;
+    }
+  
+    .second .img {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+  
+    .second .img img {
+      max-width: 90%;
+      height: auto;
+    }
+  }
+  
+
+.third {
+  margin-top: 3%; 
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.agenda {
+  width: 100%;
+  padding: 2rem; /* Reduced padding for smaller devices */
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.agenda:hover {
+  transform: translateY(-4px);
+}
+
+.agenda-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  border-bottom: 2px solid #22c55e;
+  padding-bottom: 0.5rem;
+}
+
+.agenda-text {
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+.agenda-points {
+  list-style: none;
+  padding-left: 0;
+}
+
+.agenda-points li {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.agenda-points li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #16a34a;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+
+@media (max-width: 768px) {
+  .third {
+    margin-top: 2%; 
+  }
+
+  .agenda {
+    padding: 1.5rem; 
+  }
+
+  .agenda-title {
+    font-size: 1.5rem; 
+  }
+
+  .agenda-text {
+    font-size: 1rem;
+  }
+  .agenda-points li {
+    font-size: 1rem; 
+  }
+}
+
+
+
+
+.framework {
+  padding: 4rem 2rem;
+  background-color: #f0fdf4;
+}
+
+.framework-container {
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+}
+
+.framework-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.framework-description {
+  font-size: 1.1rem;
+  color: #334155;
+  margin-bottom: 2rem;
+}
+
+.framework-structure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.framework-box {
+  background-color: #bbf7d0;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.arrow {
+  font-size: 2rem;
+
+}

@@ -5,7 +5,6 @@
     $announcement = $objAnnouncement->call_announcements();
 
 ?>
-
 <div class="button">
     <a href="#about" id="scrollToSecond"><i class="fas fa-arrow-up"></i></a>
 </div>
@@ -25,7 +24,7 @@
                         <?php foreach ($announcement as $ann): ?>
                         <div class="col-md-4 wrap-card">
                             <div class="card news-card">
-                             <a href="announcement.php?announcement_id=<?php echo $ann['announcement_id']; ?>" class="announcement-link">
+                              <a href="announcement.php?announcement_id=<?php echo $ann['announcement_id']; ?>" class="announcement-link">
                                     <img src="../imgs/cetwmsu.png" alt="News Image">
                                     <div class="news-content">
                                         <div class="combine">

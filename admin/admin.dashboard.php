@@ -1,6 +1,59 @@
 
 <?php 
-require_once "admin-chopdown/head.php"?>
+    require_once "../classes/inquire.class.php";
+    require_once "admin-chopdown/head.php";
+
+    $objInquire = new Inquire;
+    $inquiries = $objInquire->call_inquiries();
+?>
+<style>
+    .news-container {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px 0;
+
+    /* Hide scrollbar for WebKit browsers */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.news-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+    .news-container {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px 0;
+}
+
+.scroll-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.scroll-left {
+    left: 0;
+}
+
+.scroll-right {
+    right: 0;
+}
+
+.wrap-card {
+    min-width: 250px;
+    margin-right: 1rem;
+}
+
+</style>
 
 <div class="navbar-custom">
     <header class="px-1 shadow-sm">
@@ -18,9 +71,6 @@ require_once "admin-chopdown/head.php"?>
                     <a href="#" class="text-dark position-relative" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-bell fs-4"></i>
                         <!-- Notification Badge -->
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            3 <!-- Change dynamically with PHP/JS -->
-                        </span>
                     </a>
                     <!-- Notifications Dropdown -->
                     <ul class="dropdown-menu dropdown-menu-end text-small">
@@ -67,116 +117,81 @@ require_once "admin-chopdown/head.php"?>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12 col-md-12 col-lg-12 col-xl-12 d-flex flex-column">
-            <div class="row flex-grow-1">
-                <div class="col-12 col-sm-6 col-md-6 col-xl-3 pb-4">
-                    <div class="card widget-flat shadow-sm">
-                        <div class="card-body d-flex align-items-center">
-                        <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">New</span>
+    <section id="inquiries" class="relative section">
+    <div class="container">
+        <div class="row gy-4">
+            <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
+            </div>
+            <div class="col-12 position-relative">
+                <!-- Scroll Left Button -->
+                <button class="scroll-button scroll-left" id="scrollLeftInquiries" style="display: none;">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
 
-                            <!-- Profile Picture -->
-                            <img src="../imgs/user.png" alt="Profile" class="rounded-circle border me-3" width="55" height="55">
-                            
-                            <div class="flex-grow-1">
-                                <!-- Sender Name -->
-                                <h5 class="fw-bold mb-1 text-dark">John Doe</h5>
-                                <!-- Message Preview -->
-                                <p class="text-muted mb-1 text-truncate" style="max-width: 170px; font-size: 14px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, amet!</p>
-                                <!-- Timestamp -->
-                                <small class="text-muted">2 mins ago</small>
+                <!-- Scrollable Container -->
+                <div class="news-container" id="inquiriesContainer">
+                    <div class="row flex-nowrap">
+                        <?php foreach ($inquiries as $inq): ?>
+                        <div class="col-md-4 wrap-card">
+                            <div class="card widget-flat shadow-sm">
+                                <div class="card-body d-flex align-items-center">
+                                    <img src="../imgs/user.png" alt="Profile" class="rounded-circle border me-3" width="55" height="55">
+                                    <div class="flex-grow-1">
+                                        <h5 class="fw-bold mb-1 text-dark">
+                                            <?php echo ($inq["firstname"] . " " . $inq["lastname"]); ?>
+                                        </h5>
+                                        <p class="text-muted mb-1 text-truncate" style="max-width: 170px; font-size: 14px;">
+                                            <?php echo substr($inq["message"], 0, 50) . (strlen($inq["message"]) > 30 ? "..." : ""); ?>
+                                        </p>
+                                        <small class="text-muted"><?php echo $inq["date"]; ?></small>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-light text-center">
+                                <a href="admin.inquire.php" 
+                                class="btn btn-success btn-sm w-100">
+                                    <i class="bi bi-envelope-open"></i> View Message
+                                </a>
+                            </div>
                             </div>
                         </div>
-                        <!-- View Message Button -->
-                        <div class="card-footer bg-light text-center">
-                            <button class="btn btn-success btn-sm w-100" onclick="viewMessage('John Doe', 'Hey, how are you doing?')">
-                                <i class="bi bi-envelope-open"></i> View Message
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-6 col-xl-3 pb-4">
-                    <div class="card widget-flat shadow-sm">
-                        <div class="card-body d-flex align-items-center">
-
-                        <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">New</span>
-
-                            <!-- Profile Picture -->
-                            <img src="../imgs/user.png" alt="Profile" class="rounded-circle border me-3" width="55" height="55">
-                            
-                            <div class="flex-grow-1">
-                                <!-- Sender Name -->
-                                <h5 class="fw-bold mb-1 text-dark">John Doe</h5>
-                                <!-- Message Preview -->
-                                <p class="text-muted mb-1 text-truncate" style="max-width: 170px; font-size: 14px;">Hey, how are you doing?</p>
-                                <!-- Timestamp -->
-                                <small class="text-muted">2 mins ago</small>
-                            </div>
-                        </div>
-                        <!-- View Message Button -->
-                        <div class="card-footer bg-light text-center">
-                            <button class="btn btn-success btn-sm w-100" onclick="viewMessage('John Doe', 'Hey, how are you doing?')">
-                                <i class="bi bi-envelope-open"></i> View Message
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-xl-3 pb-4">
-                    <div class="card widget-flat shadow-sm">
-                        <div class="card-body d-flex align-items-center">
-                        <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">New</span>
-
-                            <!-- Profile Picture -->
-                            <img src="../imgs/user.png" alt="Profile" class="rounded-circle border me-3" width="55" height="55">
-                            
-                            <div class="flex-grow-1">
-                                <!-- Sender Name -->
-                                <h5 class="fw-bold mb-1 text-dark">John Doe</h5>
-                                <!-- Message Preview -->
-                                <p class="text-muted mb-1 text-truncate" style="max-width: 170px; font-size: 14px;">Hey, how are you doing?</p>
-                                <!-- Timestamp -->
-                                <small class="text-muted">2 mins ago</small>
-                            </div>
-                        </div>
-                        <!-- View Message Button -->
-                        <div class="card-footer bg-light text-center">
-                            <button class="btn btn-success btn-sm w-100" onclick="viewMessage('John Doe', 'Hey, how are you doing?')">
-                                <i class="bi bi-envelope-open"></i> View Message
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-xl-3 pb-4">
-                    <div class="card widget-flat shadow-sm position-relative">
-                        <div class="card-body d-flex align-items-center">
-                            <!-- New Badge -->
-                            <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">New</span>
-
-                            <!-- Profile Picture -->
-                            <img src="../imgs/user.png" alt="Profile" class="rounded-circle border me-3" width="55" height="55">
-
-                            <div class="flex-grow-1">
-                                <!-- Sender Name -->
-                                <h5 class="fw-bold mb-1 text-dark">John Doe</h5>
-                                <!-- Message Preview -->
-                                <p class="text-muted mb-1 text-truncate" style="max-width: 170px; font-size: 14px;">Hey, how are you doing?</p>
-                                <!-- Timestamp -->
-                                <small class="text-muted">2 mins ago</small>
-                            </div>
-                        </div>
-                        <!-- View Message Button -->
-                        <div class="card-footer bg-light text-center">
-                            <button class="btn btn-success btn-sm w-100" onclick="viewMessage('John Doe', 'Hey, how are you doing?')">
-                                <i class="bi bi-envelope-open"></i> View Message
-                            </button>
-                        </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
 
+                <!-- Scroll Right Button -->
+                <button class="scroll-button scroll-right" id="scrollRightInquiries">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </div>
-        
     </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const scrollContainer = document.getElementById("inquiriesContainer");
+        const scrollLeft = document.getElementById("scrollLeftInquiries");
+        const scrollRight = document.getElementById("scrollRightInquiries");
+
+        function updateScrollButtons() {
+            scrollLeft.style.display = scrollContainer.scrollLeft > 0 ? "block" : "none";
+            scrollRight.style.display = (scrollContainer.scrollLeft + scrollContainer.clientWidth) < scrollContainer.scrollWidth ? "block" : "none";
+        }
+
+        scrollContainer.addEventListener("scroll", updateScrollButtons);
+
+        scrollLeft.addEventListener("click", () => {
+            scrollContainer.scrollBy({ left: -300, behavior: "smooth" });
+        });
+
+        scrollRight.addEventListener("click", () => {
+            scrollContainer.scrollBy({ left: 300, behavior: "smooth" });
+        });
+
+        updateScrollButtons(); // Initial check
+    });
+</script>
+
 </div>
 <div class="container-fluid">
     <div class="row">

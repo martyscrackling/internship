@@ -1,0 +1,356 @@
+* {
+    font-family: "Poppins", sans-serif;
+  }
+  
+  .navbar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    transition: top 0.3s ease-in-out;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ) !important;
+    box-shadow: none;
+    z-index: 1000; /* Ensure it's above everything */
+  }
+  
+  .navbar .nav-link,
+  .navbar .navbar-brand,
+  .navbar .navbar-toggler-icon {
+    color: white !important;
+  }
+  
+  /* For dropdown items */
+  .navbar .dropdown-menu {
+    background-color: white;
+    min-width: 180px; 
+    padding: 0.5rem 0;
+  }
+  
+  .navbar .dropdown-item {
+    color: green;
+    padding: 8px 12px;  /* Reduce padding */
+    font-size: 14px;    /* Smaller font size */
+  }
+  
+  .navbar .dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Dropdown Animation */
+  .navbar-nav .dropdown-menu {
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transform: translateY(10px);
+    opacity: 0;
+    visibility: hidden;
+    display: block; /* Ensures smooth animation */
+  }
+  
+  /* Show dropdown on hover */
+  .navbar-nav .dropdown:hover .dropdown-menu {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Dropdown item hover effect */
+  .navbar-nav .dropdown-menu .dropdown-item {
+    transition: background-color 0.3s ease-in-out, padding-left 0.3s ease-in-out;
+  }
+  
+  /* Hover effect: changes background & adds left padding */
+  .navbar-nav .dropdown-menu .dropdown-item:hover {
+    padding-left: 15px; 
+    color: #0b4103; 
+  }
+  
+  
+  /* Navbar Styling */
+  
+  .navbar-brand img {
+    width: 60px;
+    transition: 0.3s;
+  }
+  .hidden-text {
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.5s ease-in-out;
+    margin-left: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    text-shadow: #222;
+    white-space: nowrap; /* Prevent text from breaking */
+  }
+  
+  .show-text {
+    opacity: 1; /* Show text when scrolling */
+  }
+  
+  .navbar-nav .nav-link {
+    margin-left: 20px; /* Adjust as needed */
+  }
+  #navbar-text {
+    font-size: 18px; /* slightly bigger */
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 2px #000;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  @media (min-width: 1200px) {
+    #navbar-text {
+      font-size: 20px; 
+      max-width: 500px;
+    }
+  }
+
+  .dropdown-submenu {
+    position: relative;
+  }
+  
+  
+  .dropdown-submenu .sub-menu {
+    min-width: 160px; 
+    padding: 0.5rem 0;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    z-index: 1000;
+  }
+  
+  
+  /* .dropdown-submenu:hover > .sub-menu {
+    display: block;
+  }
+  
+  .dropdown-submenu > .dropdown-item::after {
+    content: "\f105"; 
+    font-family: "Font Awesome 5 Free"; 
+    font-weight: 900; 
+    margin-left: 8px;
+    font-size: 12px;
+  } */
+  
+  
+  
+  @media (max-width: 990px) {
+    #navbar-text {
+      visibility: hidden;
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+    }
+  }
+  
+
+
+
+  .first{
+    margin-top: 9%;
+  }
+  .header {
+    font-size: 40p; 
+    font-weight: 800;
+    position: relative;
+    display: inline-block;
+    margin: 0 auto; 
+  }
+  
+  .header::after {
+    content: "";
+    display: block;
+    width: 40%;
+    height: 5px; 
+    background: linear-gradient(
+      to right,
+      rgba(0, 255, 0, 0),
+      rgba(0, 100, 0, 1),
+      rgba(0, 255, 0, 0)
+    );
+    position: absolute;
+    left: 32%; 
+    bottom: -9px;
+  }
+  
+  
+  
+  /* Section Spacing */
+section {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+/* List Styling */
+.list-group-item {
+  font-size: 16px;
+  padding: 12px 20px;
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Numbered list (How to Avail) */
+.list-group-numbered .list-group-item::before {
+  background-color: #0b4103;
+  color: white;
+  font-weight: bold;
+}
+
+/* Section Header */
+.section-title {
+  margin-bottom: 2rem;
+}
+
+.section-title h2.header {
+  font-size: 30px;
+}
+
+/* Paragraph under FUNCTIONS */
+section p {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #333;
+}
+
+/* Personnel Styling */
+section .rounded-circle {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+section .rounded-circle:hover {
+  transform: scale(1.05);
+}
+
+section h5 {
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+section p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 0;
+  font-style: italic;
+}
+.course-card {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 80, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+}
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 80, 0, 0.2);
+}
+.course-card h5 {
+  margin-bottom: 8px;
+}
+.course-card p {
+  font-size: 14px;
+}
+
+.steps-wrapper {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.step-box {
+  background-color: #f9f9f9;
+  border-left: 5px solid #0b4103;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 300px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  flex: 1 1 250px;
+  transition: 0.3s ease;
+}
+.step-box:hover {
+  background-color: #e8f7ea;
+}
+.step-number {
+  display: inline-block;
+  background-color: #0b4103;
+  color: white;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.desc{
+  padding-top: 40px;
+}
+
+/* Responsive text */
+@media (max-width: 768px) {
+  .course-card p, .step-box p {
+    font-size: 15px;
+  }
+}
+.person-card {
+  background-color: #ffffff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.person-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 128, 0, 0.1);
+}
+
+
+.function {
+  color: white;
+  text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8); 
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 45px 10% ;  /* padding adds space around content */
+  background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.8) 5%,
+      rgba(0, 0, 0, 0.4) 20%,
+      rgba(0, 0, 0, 0.4) 80%,
+      rgba(0, 0, 0, 0.5) 95%
+    ),
+    url("../imgs/cetwmsu.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.function .text-center {
+  color: white;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.head{
+  font-size: 35px;
+  font-weight: 800;
+}
+
+
+
+.offer{
+  background-color: rgba(201, 201, 201, 0.125);
+  padding: 50px 10% ; 
+}
+
+
+

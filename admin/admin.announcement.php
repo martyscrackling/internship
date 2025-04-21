@@ -6,11 +6,13 @@ require_once "../classes/announcement.class.php";
 
 $objAnnouncement = new Announcements;
 $ann = $objAnnouncement->call_announcements();
+$current_date = date('F j, Y');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $a_title = isset($_POST['a_title']) ? clean_input($_POST['a_title']) : '';
     $a_description = isset($_POST['a_description']) ? clean_input($_POST['a_description']) : '';
-    $a_date = date('F j, Y'); // Store as "April 1, 2025"
+    $a_date = date('F j, Y'); 
+
 
     $objAnnouncement->a_title = $a_title;
     $objAnnouncement->a_description = $a_description;
@@ -52,9 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <a href="#" class="text-dark position-relative" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-bell fs-4"></i>
                         <!-- Notification Badge -->
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            3 <!-- Change dynamically with PHP/JS -->
-                        </span>
+                        
                     </a>
                     <!-- Notifications Dropdown -->
                     <ul class="dropdown-menu dropdown-menu-end text-small">
@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                         <img src="../imgs/descd.png" alt="Admin" class="rounded-circle border me-3" width="55" height="55">
                         <div>
                             <h6 class="mb-1 fw-bold text-dark">Admin Team</h6>
-                            <small class="text-muted"><?php echo $a_date; ?></small>
+                            <small class="text-muted"><?php echo $current_date; ?></small>
                         </div>
                     </div>
                     <!-- Textarea for announcement -->
@@ -145,44 +145,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         <div class="page-title-box">
             <h4 class="page-title fw-bold">Announcements:</h4>
         </div>
-
+    <div class="delete-modal"></div>
         <div class="row justify-content-center align-items-stretch">
-    <?php foreach ($ann as $a): ?>
-    <div class="col-12 col-md-6 mb-4 d-flex">
-        <div class="card shadow-lg border-0 rounded-4 d-flex flex-column announcement-card">
-            <div class="card-body flex-grow-1 announcement-body">
-                <div class="d-flex align-items-center mb-3">
-                    <img src="../imgs/descd.png" alt="Admin" class="rounded-circle border me-3" width="55" height="55">
-                    <div>
-                        <h6 class="mb-1 fw-bold text-dark">Admin Team</h6>
-                        <small class="text-muted"><?php echo $a["a_date"]; ?></small>
+            <?php foreach ($ann as $a): ?>
+                <div class="col-12 col-md-6 mb-4 d-flex">
+                    <div class="card shadow-lg border-0 rounded-4 d-flex flex-column announcement-card">
+                        <div class="card-body flex-grow-1 announcement-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <img src="../imgs/descd.png" alt="Admin" class="rounded-circle border me-3" width="55" height="55">
+                                <div>
+                                    <h6 class="mb-1 fw-bold text-dark">Admin Team</h6>
+                                    <small class="text-muted"><?php echo $a["a_date"]; ?></small>
+                                </div>
+                            </div>
+                            <p class="text-secondary announcement-text">
+                                <strong><?php echo $a["a_title"]; ?></strong> 
+                                <?php echo substr($a["a_description"], 0, 255) . (strlen($a["a_description"]) > 255 ? '...' : ''); ?>
+                            </p>
+                            <img src="../imgs/descd.jpeg" alt="" class="img-fluid">
+                        </div>
+                        <div class="card-footer bg-light d-flex justify-content-around announcement-footer">
+                            <button class="btn btn-warning btn-sm px-4 fw-semibold">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </button>
+                            <a href="#" class="btn btn-danger btn-sm px-4 fw-semibold delete-button" style="text-decoration: none;">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+
+
+                        </div>
                     </div>
                 </div>
-                <p class="text-secondary announcement-text">
-                    <strong><?php echo $a["a_title"]; ?></strong> 
-                    <?php echo substr($a["a_description"], 0, 255) . (strlen($a["a_description"]) > 255 ? '...' : ''); ?>
-                </p>
-                <img src="../imgs/descd.jpeg" alt="" class="img-fluid">
-            </div>
-            <div class="card-footer bg-light d-flex justify-content-around announcement-footer">
-                <button class="btn btn-warning btn-sm px-4 fw-semibold">
-                    <i class="bi bi-pencil-square"></i> Edit
-                </button>
-                <button class="btn btn-danger btn-sm px-4 fw-semibold">
-                    <i class="bi bi-trash"></i> Delete
-                </button>
+            <?php endforeach; ?>
+        </div>
+
             </div>
         </div>
-    </div>
-    <?php endforeach; ?>
-</div>
-
-    </div>
-</div>
 
 
 
-</div>
+        </div>
 
 
 
@@ -219,6 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
 }, 3000); // 3000ms = 3 seconds
 </script>
+<?php   require_once "../courses/js_courses.php"; ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../vendor/bootstrap-5.3.3/js/bootstrap.bundle.min.js"></script>
 <script src="../vendor/jQuery-3.7.1/jquery-3.7.1.min.js"></script>

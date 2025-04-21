@@ -7,10 +7,9 @@ session_start();
     $announcement_id = isset($_GET['announcement_id']) ? $_GET['announcement_id'] : 1;
     $ann = $objAnnouncement->each_announcement($announcement_id);
     $announcement = $objAnnouncement->call_announcements();
-
 ?>
 <link rel="stylesheet" href="../style/announcement.css">
-<title>DESCD | Announcement</title>
+<title><?php echo $ann["a_title"]; ?> | Announcement</title>
 <?php require_once "../dash_chopdown/dash_nav.php" ?>
 <body>
 <section class="announcement">
@@ -26,22 +25,17 @@ session_start();
             <div class="row g-2 mt-3">
               <div class="col-md-4">
                 <div class="image-container">
-                  <img src="../imgs/911.jpg" alt="Ceremony Photo">
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="image-container">
                   <img src="../imgs/cetwmsu.png" alt="Signing of Agreement">
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="image-container">
-                  <img src="../imgs/wmsu.png" alt="Group Photo">
+                  <img src="../imgs/suscat.jpg" alt="Group Photo">
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="image-container">
-                  <img src="../imgs/wmsu.png" alt="Group Photo">
+                  <img src="../imgs/sillycar.jpg" alt="Group Photo">
                 </div>
               </div>
             </div>

@@ -1,0 +1,37 @@
+
+* {
+    font-family: "Poppins", sans-serif;
+  }
+  .header {
+    font-size: 40p; 
+    font-weight: 800;
+    position: relative;
+    display: inline-block;
+    margin: 0 auto; 
+  }
+
+  
+  .header::after {
+    content: "";
+    display: block;
+    width: 40%;
+    height: 5px; 
+    background: linear-gradient(
+      to right,
+      rgba(0, 255, 0, 0),
+      rgba(0, 100, 0, 1),
+      rgba(0, 255, 0, 0)
+    );
+    position: absolute;
+    left: 32%; 
+    bottom: -9px;
+  }
+
+  .section-title {
+    margin-bottom: 2rem;
+  }
+  
+  .section-title h2.header {
+    font-size: 30px;
+  }
+  
