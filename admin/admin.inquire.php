@@ -4,7 +4,23 @@
     require_once "../classes/inquire.class.php";
     $objInquire = new Inquire;
     $inquiries = $objInquire->call_inquiries();
+
+    // Handle delete request
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
+        $idToDelete = $_POST['delete_id'];
+
+        if ($objInquire->delete_inquiries($idToDelete)) {
+            echo "<script>
+                    alert('Inquiry deleted successfully');
+                    window.location.href = window.location.href;
+                  </script>";
+            exit;
+        } else {
+            echo "<script>alert('Failed to delete inquiry');</script>";
+        }
+    }
 ?>
+
 
 <style>
 /* Global Responsive Styles */
@@ -106,41 +122,11 @@ body {
             </button>
                 <h1 class="navtext">Inquiries</h1>
             </button>
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-end">
-                
-                <!-- Notification Icon with Badge -->
-                <div class="dropdown">
-                    <a href="#" class="text-dark position-relative" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-bell fs-4"></i>
-                        <!-- Notification Badge -->
-
-                    </a>
-                    <!-- Notifications Dropdown -->
-                    <ul class="dropdown-menu dropdown-menu-end text-small">
-                        <li><strong class="dropdown-header">Notifications</strong></li>
-                        <li><a class="dropdown-item" href="#">New order received</a></li>
-                        <li><a class="dropdown-item" href="#">System update available</a></li>
-                        <li><a class="dropdown-item" href="#">You have a new message</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item text-center" href="#">View all notifications</a></li>
-                    </ul>
-                </div>
-
-                <!-- Profile Dropdown -->
-                <div class="dropdown text-end ms-3">
-                    <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="../imgs/descd.png" alt="mdo" width="32" height="32" class="rounded-circle">
-                    </a>
-                    <ul class="dropdown-menu text-small">
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="../auth/logout.php">Sign out</a></li>
-                    </ul>   
-                </div>
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-end m-lg-2">
+                <a href="../auth/logout.php" class="d-flex align-items-center gap-2 px-3 py-2 text-decoration-none text-dark" >
+                    <i class="bi bi-box-arrow-right fs-5"></i>
+                    <span class="fw-semibold">Logout</span>
+                </a>
             </div>
         </div>
     </header>
@@ -174,9 +160,10 @@ body {
                                     data-message="<?php echo htmlspecialchars($inq['message'], ENT_QUOTES); ?>">
                                     <i class="bi bi-eye"></i> <span class="action-btn-text">View</span>
                                 </button>
-                                <button class="btn btn-outline-danger btn-sm action-btn">
+                                <button class="btn btn-outline-danger btn-sm action-btn delete-btn" data-id="<?php echo $inq['inquire_id']; ?>">
                                     <i class="bi bi-trash"></i> <span class="action-btn-text">Delete</span>
                                 </button>
+
                             </div>
                         </div>
                     </div>
@@ -231,7 +218,6 @@ body {
         </div>
     </div>
 </div>
-
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -318,3 +304,33 @@ body {
 <script src="../vendor/datatable-2.1.8/datatables.min.js"></script>
 <script src="../js/admin.js"></script>
 <script src="../js/product.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".delete-btn").forEach(btn => {
+        btn.addEventListener("click", function () {
+            const id = this.dataset.id;
+            if (!confirm("Are you sure you want to delete this inquiry?")) return;
+
+            fetch("delete_inquire.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: "delete_id=" + encodeURIComponent(id)  // Send as delete_id
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Inquiry deleted successfully.");
+                    this.closest(".message-item").remove();
+                } else {
+                    alert("Failed to delete inquiry.");
+                }
+            })
+            .catch(err => {
+                console.error("AJAX Error:", err);
+                alert("Something went wrong.");
+            });
+        });
+    });
+});
+
+</script>

@@ -3,12 +3,11 @@
 
     class Announcements{
         private $conn;
-
+        
         public $announcement_id;
         public $a_title	;
         public $a_description;
         public $a_date;
-
 
         function __construct(){
             $db = new Database;
@@ -54,5 +53,26 @@
             return $query->fetch();
         }
 
+        function delete_announcement($announcement_id){
+            $sql = "DELETE FROM announcements WHERE announcement_id = :announcement_id";
+            $query = $this->conn->prepare($sql);
+            $query->bindParam(':announcement_id', $announcement_id);
+
+            if ($query->execute()){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        function update_announcement(){
+            $sql = "UPDATE announcements SET a_title = :a_title, a_description = :a_description WHERE announcement_id = :announcement_id";
+            $query = $this->conn->prepare($sql);
+            $query->bindParam(':a_title', $this->a_title);
+            $query->bindParam(':a_description', $this->a_description);
+            $query->bindParam(':announcement_id', $this->announcement_id);
+        
+            return $query->execute();
+        }
+        
     }
 ?>

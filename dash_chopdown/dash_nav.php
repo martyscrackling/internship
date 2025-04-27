@@ -67,7 +67,7 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Projects & Activities</a>
+          <a class="nav-link" href="../dashboard/projact.php">Projects & Activities</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Contact Us</a>

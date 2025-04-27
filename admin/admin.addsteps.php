@@ -1,38 +1,51 @@
 <?php 
+session_start();
+require_once "../classes/unit.class.php";
+require_once "../classes/enroll.class.php";
+require_once "../tools/clean.php";
+require_once "admin-chopdown/head.php";
 
-    session_start();
-    require_once "../classes/unit.class.php";
-    require_once "../classes/enroll.class.php";
-    require_once "../tools/clean.php";
-    require_once "admin-chopdown/head.php";
+$e_steps = [];
+$objEnroll = new Enroll;
 
+// Check if editing
+if (isset($_GET['unit_id']) && isset($_GET['action']) && $_GET['action'] == 'edit') {
+    $objEnroll->unit_id = $_GET['unit_id'];
+    $existingSteps = $objEnroll->showSteps($_GET['unit_id']);
+    foreach ($existingSteps as $step) {
+        $e_steps[] = $step['e_steps'];
+    }
+} else {
+    $existingSteps = [];
+}
 
-    $e_steps = "";
-    $objEnroll = new Enroll;
-    $show = $objEnroll->join();
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $enrollArray = $_POST['e_steps'];
+    $unit_id = $_POST['unit_id']; 
+    $objEnroll->unit_id = $_GET['unit_id'];
 
-
-
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $enrollArray = $_POST['e_steps'];
+    // Delete old steps first if editing
+    if (isset($_GET['action']) && $_GET['action'] == 'edit') {
+        $objEnroll->deleteEnroll($objEnroll->unit_id, $enrollArray);
+    } else {
         $objEnroll->e_steps = $enrollArray;
-        $objEnroll->unit_id = $_GET['unit_id'];
-        
-        if ($objEnroll->addSteps()) {
-            header("Location: admin.course.php");
-            exit;
-        } else {
-    
-            echo 'Something went wrong when adding the new product. ';
-        }
+        $objEnroll->addSteps();
     }
 
+    header("Location: admin.coursemodify.php?unit_id=" . urlencode($unit_id));
+    exit;
+}
 ?>
+
 <link rel="stylesheet" href="../style/admin_units.css">
 <?php 
-// require_once "admin-chopdown/sidebar.php";
+require_once "admin-chopdown/sidebar.php";
 require_once "../dash_chopdown/dash_head.php";
-?>  
+?> 
+<!-- <div class="alert alert-success alert-dismissible fade show" style="margin-left: 18%; max-width: 81%;" role="alert">
+    <strong>Success!</strong> Announcement posted successfully.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>  -->
 <div class="navbar-custom">
     <header class="px-1 shadow-sm">
         <div class="container-fluid d-flex justify-content-between">
@@ -42,48 +55,16 @@ require_once "../dash_chopdown/dash_head.php";
             </button>
                 <h1 class="navtext">Unit - Add Steps</h1>
             </button>
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-end">
-                
-                <!-- Notification Icon with Badge -->
-                <div class="dropdown">
-                    <a href="#" class="text-dark position-relative" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-bell fs-4"></i>
-                        <!-- Notification Badge -->
-                    </a>
-                    <!-- Notifications Dropdown -->
-                    <ul class="dropdown-menu dropdown-menu-end text-small">
-                        <li><strong class="dropdown-header">Notifications</strong></li>
-                        <li><a class="dropdown-item" href="#">New order received</a></li>
-                        <li><a class="dropdown-item" href="#">System update available</a></li>
-                        <li><a class="dropdown-item" href="#">You have a new message</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item text-center" href="#">View all notifications</a></li>
-                    </ul>
-                </div>
-
-                <!-- Profile Dropdown -->
-                <div class="dropdown text-end ms-3">
-                    <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="../imgs/descd.png" alt="mdo" width="32" height="32" class="rounded-circle">
-                    </a>
-                    <ul class="dropdown-menu text-small">
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="../auth/logout.php">Sign out</a></li>
-                    </ul>   
-                </div>
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-end m-lg-2">
+                <a href="../auth/logout.php" class="d-flex align-items-center gap-2 px-3 py-2 text-decoration-none text-dark" >
+                    <i class="bi bi-box-arrow-right fs-5"></i>
+                    <span class="fw-semibold">Logout</span>
+                </a>
             </div>
         </div>
     </header>
 </div>
-<!-- <div class="alert alert-success alert-dismissible fade show" style="margin-left: 18%; max-width: 81%;" role="alert">
-    <strong>Success!</strong> Announcement posted successfully.
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div> -->
+
 
 
 
@@ -123,7 +104,6 @@ require_once "../dash_chopdown/dash_head.php";
 
 
 <?php 
-
 ?>
 <section class="first">
     <div class="content-page px-3 ">
@@ -137,25 +117,38 @@ require_once "../dash_chopdown/dash_head.php";
                             <div class="col-12 mb-4 d-flex">
                                 <div class="card shadow-lg border-0 rounded-4 h-100 d-flex flex-column w-100">
                                 <form action="" method="POST">
+                                <input type="hidden" name="unit_id" value="<?php echo htmlspecialchars($_GET['unit_id']); ?>">
                                     <div class="card-body flex-grow-1">
-                                    <p class="how mt-4 fw-bold">Input steps on how to enroll</p>
+                                        <p class="how mt-4 fw-bold">Input steps on how to enroll</p>
                                         <div id="step-container">
-                                            <div class="input-group mb-3 step-wrapper">
-                                                <input class="form-control" name="e_steps[]" placeholder="Step 1" required>
-                                                <span class="input-group-text remove-btn" onclick="removeStep(this)" style="cursor: pointer;">❌</span>
-                                            </div>
+                                            <?php if (!empty($e_steps)): ?>
+                                                <?php foreach ($e_steps as $index => $step): ?>
+                                                    <div class="input-group mb-3 step-wrapper">
+                                                        <input class="form-control" name="e_steps[]" value="<?php echo htmlspecialchars($step); ?>" placeholder="Step <?php echo $index + 1; ?>" required>
+                                                        <span class="input-group-text remove-btn" onclick="removeStep(this)" style="cursor: pointer;">❌</span>
+                                                    </div>
+                                                <?php endforeach; ?>
+                                            <?php else: ?>
+                                                <div class="input-group mb-3 step-wrapper">
+                                                    <input class="form-control" name="e_steps[]" placeholder="Step 1" required>
+                                                    <span class="input-group-text remove-btn" onclick="removeStep(this)" style="cursor: pointer;">❌</span>
+                                                </div>
+                                            <?php endif; ?>
                                         </div>
+
+                                        <!-- 🔥 Missing Buttons Added Here -->
                                         <div class="add text-center mt-2">
                                             <button type="button" class="icon-btn add-btn" onclick="addInputField()">
                                                 <div class="add-icon me-2"><i class="bi bi-plus-circle"></i></div>
                                                 <div class="btn-txt">Add More</div>
                                             </button>
                                         </div>
+
                                         <div class="d-flex justify-content-end mt-4 mb-0">
                                             <input type="submit" class="btn btn-success btn-sm" name="submit" value="Submit">
                                         </div>
                                     </div>
-                                </form>        
+                                </form>
                                 </div>
                             </div>
                         </div>
@@ -165,9 +158,6 @@ require_once "../dash_chopdown/dash_head.php";
         </div>
     </div>
 </section>
-
-
-
 <script>
 function addInputField() {
     const container = document.getElementById("step-container");
@@ -210,18 +200,6 @@ function renumberSteps() {
     });
 }
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
    setTimeout(function() {
     var alert = document.querySelector('.alert');

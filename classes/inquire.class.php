@@ -40,7 +40,18 @@
             return $query->fetchAll();
         }
         
- 
+
+        function delete_inquiries($inquire_id){
+            $sql = "DELETE FROM inquire WHERE inquire_id = :inquire_id";
+            $query = $this->conn->prepare($sql);
+            $query->bindParam(':inquire_id', $inquire_id);
+
+            if ($query->execute()) {
+                return true; 
+            } else {
+                return false;
+            }
+        }
     }
 
 ?>

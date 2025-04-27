@@ -8,6 +8,40 @@
     $objFacultyStaff = new FacultyStaff;
     $firstname = $middleinitial = $lastname = $role = "";
 
+
+    if (isset($_POST['update_faculty'])) {
+        $objFacultyStaff->facultystaff_id = clean_input($_POST['edit_id']);
+        $objFacultyStaff->firstname = clean_input($_POST['edit_firstname']);
+        $objFacultyStaff->middleinitial = clean_input($_POST['edit_middleinitial']);
+        $objFacultyStaff->lastname = clean_input($_POST['edit_lastname']);
+        $objFacultyStaff->role = clean_input($_POST['edit_role']);
+    
+        if ($objFacultyStaff->updateFaculty()) {
+            $_SESSION['success_msg'] = "Faculty/Staff updated successfully.";
+        } else {
+            $_SESSION['error_msg'] = "Failed to update Faculty/Staff.";
+        }
+    
+        header("Location: admin.facultystaff.php");
+        exit();
+    }
+    
+
+    if (isset($_GET['delete_id'])) {
+        $deleteId = clean_input($_GET['delete_id']);
+        if ($objFacultyStaff->delete_facultysfaff($deleteId)) {
+            $_SESSION['success_msg'] = "Faculty/Staff removed successfully.";
+        } else {
+            $_SESSION['error_msg'] = "Failed to delete Faculty/Staff.";
+        }
+    
+        // Redirect to the same page (clears the GET parameter from URL)
+        header("Location: admin.facultystaff.php");
+        exit();
+    }
+    
+
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $firstname = isset($_POST['firstname']) ? clean_input($_POST['firstname']) : '';
         $middleinitial = isset($_POST['middleinitial']) ? clean_input($_POST['middleinitial']) : '';
@@ -25,21 +59,26 @@
         $objFacultyStaff->role = $role;
 
         if ($objFacultyStaff->addFacultyStaff()) {
-            echo '
-                <div class="alert alert-success alert-dismissible fade show" style="margin-left: 18%; max-width: 81%;" role="alert">
-                    <strong>Success!</strong> Faculty/Staff added successfully.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            ';
+            $_SESSION['success_msg'] = "Faculty/Staff added successfully.";
         } else {
-            echo '
-                <div class="alert alert-danger alert-dismissible fade show ms-lg-5 ms-md-4" role="alert">
-                    <strong>Error!</strong> Failed to add Faculty/Staff.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            ';
+            $_SESSION['error_msg'] = "Failed to add Faculty/Staff.";
         }
+
+        // Redirect to avoid form resubmission
+        header("Location: admin.addprofile.php?facultystaff_id=$facultystaff_id");
+        exit();
+
+    } 
+    if (isset($_POST['assign_staff']) && isset($_POST['facultystaff_id'])) {
+        $unit_id = clean_input($_POST['unit_id']);
+        $selected_ids = $_POST['facultystaff_id']; // array of selected staff
+    
+        $objFacultyStaff->assignFacultyStaff($unit_id, $selected_ids);
+        $_SESSION['success_msg'] = "Personnel assigned successfully.";
+        header("Location: admin.facultystaff.php");
+        exit();
     }
+    
 ?>
 
 <style>
@@ -55,6 +94,21 @@
 
 </style>
 
+<!-- <?php if (isset($_SESSION['success_msg'])): ?>
+    <div class="alert alert-success alert-dismissible fade show" style="margin-left: 18%; max-width: 81%;" role="alert">
+        <strong>Deleted!</strong> <?= $_SESSION['success_msg']; ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <?php unset($_SESSION['success_msg']); ?>
+<?php endif; ?> -->
+
+<?php if (isset($_SESSION['error_msg'])): ?>
+    <div class="alert alert-danger alert-dismissible fade show ms-lg-5 ms-md-4" role="alert">
+        <strong>Error!</strong> <?= $_SESSION['error_msg']; ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <?php unset($_SESSION['error_msg']); ?>
+<?php endif; ?>
 <div class="navbar-custom">
     <header class="px-1 shadow-sm">
         <div class="container-fluid d-flex justify-content-between">
@@ -64,45 +118,15 @@
             </button>
                 <h1 class="navtext">Faculty and Staff</h1>
             </button>
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-end">
-                
-                <!-- Notification Icon with Badge -->
-                <div class="dropdown">
-                    <a href="#" class="text-dark position-relative" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-bell fs-4"></i>
-                        <!-- Notification Badge -->
-                    </a>
-                    <!-- Notifications Dropdown -->
-                    <ul class="dropdown-menu dropdown-menu-end text-small">
-                        <li><strong class="dropdown-header">Notifications</strong></li>
-                        <li><a class="dropdown-item" href="#">New order received</a></li>
-                        <li><a class="dropdown-item" href="#">System update available</a></li>
-                        <li><a class="dropdown-item" href="#">You have a new message</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item text-center" href="#">View all notifications</a></li>
-                    </ul>
-                </div>
-
-                <!-- Profile Dropdown -->
-                <div class="dropdown text-end ms-3">
-                    <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="../imgs/descd.png" alt="mdo" width="32" height="32" class="rounded-circle">
-                    </a>
-                    <ul class="dropdown-menu text-small">
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="../auth/logout.php">Sign out</a></li>
-                    </ul>   
-                </div>
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-end m-lg-2">
+                <a href="../auth/logout.php" class="d-flex align-items-center gap-2 px-3 py-2 text-decoration-none text-dark" >
+                    <i class="bi bi-box-arrow-right fs-5"></i>
+                    <span class="fw-semibold">Logout</span>
+                </a>
             </div>
         </div>
     </header>
 </div>
-
 <div class="container mt-5" style="width: 77%; margin-right: 40px;">
   <div class="card shadow-sm p-4">
     <h4 class="mb-4">Add Faculty or Staff</h4>
@@ -140,6 +164,7 @@
     <input type="text" class="form-control" id="other-role" name="other_role" placeholder="Enter custom role">
 </div>
 
+
 <script>
     const roleSelect = document.getElementById('role');
     const otherRoleContainer = document.getElementById('other-role-container');
@@ -157,15 +182,17 @@
 </script>
 
 
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <label for="profilePic" class="form-label">Profile Picture</label>
         <input class="form-control" type="file" id="profilePic" name="profilepicture" accept="image/*">
-      </div>
+      </div> -->
 
       <button type="submit" class="btn btn-success" >Add Member</button>
     </form>
   </div>
 </div>
+
+
 
 <?php 
     require_once "../dash_chopdown/dash_head.php"; 
@@ -206,8 +233,15 @@
                             <h4 style="font-size: 1.5rem; margin-bottom: 10px;"><?php echo $fs['firstname'] . ' ' . $fs['middleinitial'] . ' ' . $fs['lastname']; ?></h4>
                             <span style="font-size: 1rem; color: #777;"><?php echo $fs['role']; ?></span>
                             <div class="mt-3 d-flex justify-content-center gap-2">
-                                <button class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i> Edit</button>
-                                <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Delete</button>
+                            <button 
+                                class="btn btn-sm btn-warning"
+                                data-id="<?php echo $fs['facultystaff_id']; ?>"
+                                >
+                                <i class="bi bi-pencil-square"></i> Edit
+                                </button>
+                                <a href="?delete_id=<?php echo $fs['facultystaff_id']; ?>" onclick="return confirm('Are you sure you want to delete this entry?');" class="btn btn-sm btn-danger">
+                                    <i class="bi bi-trash"></i> Delete
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -231,8 +265,15 @@
                                 </div>
                             </div>
                             <div class="mt-3 d-flex justify-content-center gap-2">
-                                <button class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i> Edit</button>
-                                <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Delete</button>
+                            <button 
+                                class="btn btn-sm btn-warning"
+                                data-id="<?php echo $fs['facultystaff_id']; ?>"
+                                >
+                                <i class="bi bi-pencil-square"></i> Edit
+                                </button>
+                                <a href="?delete_id=<?php echo $fs['facultystaff_id']; ?>" onclick="return confirm('Are you sure you want to delete this entry?');" class="btn btn-sm btn-danger">
+                                    <i class="bi bi-trash"></i> Delete
+                                </a>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -241,6 +282,33 @@
         <?php endif; ?>
     </div>
 </section>
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="POST" id="editForm">
+      <input type="hidden" name="edit_id" id="edit_id">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Faculty/Staff</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <label>First Name</label>
+          <input type="text" class="form-control" name="edit_firstname" id="edit_firstname" required>
+          <label>Middle Initial</label>
+          <input type="text" class="form-control" name="edit_middleinitial" id="edit_middleinitial">
+          <label>Last Name</label>
+          <input type="text" class="form-control" name="edit_lastname" id="edit_lastname" required>
+          <label>Role</label>
+          <input type="text" class="form-control" name="edit_role" id="edit_role" required>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" name="update_faculty" class="btn btn-primary">Update</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 
 </body>
 
@@ -250,7 +318,24 @@
 
 
 
+<script>
+    document.querySelectorAll('.btn-warning').forEach(button => {
+    button.addEventListener('click', function () {
+        const card = this.closest('.profile-card, .col-lg-3');
+        const name = card.querySelector('h4').innerText.split(" ");
+        const role = card.querySelector('span').innerText;
 
+        document.getElementById('edit_id').value = this.getAttribute('data-id');
+        document.getElementById('edit_firstname').value = name[0];
+        document.getElementById('edit_middleinitial').value = name[1] || '';
+        document.getElementById('edit_lastname').value = name.slice(-1)[0];
+        document.getElementById('edit_role').value = role;
+
+        new bootstrap.Modal(document.getElementById('editModal')).show();
+    });
+});
+
+</script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
     const menuToggle = document.getElementById("menu-toggle");

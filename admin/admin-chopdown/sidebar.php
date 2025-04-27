@@ -9,6 +9,15 @@
     background-color:rgb(27, 73, 51) !important; 
     color: white !important;
 }
+#sidebar {
+    transition: all 0.3s ease;
+}
+
+#sidebar.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
 </style>
 
 
@@ -38,26 +47,27 @@
         </li>
         <li class="nav-item">
             <a href="admin.inquire.php" class="nav-link  <?php if ($current_page == 'admin.inquire.php') echo 'active'; ?>">
-                <i class="bi bi-question-circle"></i>
+                <i class="bi bi-chat"></i>
                 <span class="fs-6 ms-2">Inquiries</span>
             </a>
         </li>
         <li class="nav-item">
-            <a href="admin.units.php" class="nav-link  <?php if ($current_page == 'admin.units.php') echo 'active'; ?>">
+            <a href="admin.units.php" class="nav-link  <?php if ($current_page == 'admin.units.php' ||  $current_page == 'admin.addsteps.php' || $current_page == 'admin.coursemodify.php') echo 'active'; ?>">
                 <i class="bi bi-book"></i>
                 <span class="fs-6 ms-2">Units</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a href="admin.course.php" class="nav-link  <?php if ($current_page == 'admin.course.php') echo 'active'; ?>">
-                <i class="bi bi-pen"></i>
-                <span class="fs-6 ms-2">Course</span>
-            </a>
-        </li>
+        
         <li class="nav-item">
             <a href="admin.facultystaff.php" class="nav-link  <?php if ($current_page == 'admin.facultystaff.php') echo 'active'; ?>">
                 <i class="bi bi-person"></i>
                 <span class="fs-6 ms-2">Faculty & Staff</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="admin.about.php" class="nav-link  <?php if ($current_page == 'admin.about.php' ||  $current_page == 'admin.showabout.php') echo 'active'; ?>">
+                <i class="bi bi-question-circle"></i>
+                <span class="fs-6 ms-2">About</span>
             </a>
         </li>
         

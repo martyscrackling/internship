@@ -1,4 +1,6 @@
-<?php require_once "../dash_chopdown/dash_head.php" ?>
+<?php 
+
+require_once "../dash_chopdown/dash_head.php" ?>
 
 <link rel="stylesheet" href="../style/descd.css">
 <title>Home</title>

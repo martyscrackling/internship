@@ -5,6 +5,7 @@
     require_once "../tools/clean.php";
     require_once "admin-chopdown/head.php";
 
+
     $objUnits = new Units;
     $objUser = new Enroll;
     $showUnit = $objUnits->showAllUnits();
@@ -21,6 +22,18 @@
     $objUnits->u_description = $u_description;
     $objUnits->u_functions = $u_functions;
 
+    if (isset($_GET['delete_unit_id'])) {
+        $unit_id_to_delete = $_GET['delete_unit_id'];
+    
+        if ($objUnits->delete_unit($unit_id_to_delete)) {
+            $_SESSION['success'] = "Unit deleted successfully!";
+        } else {
+            $_SESSION['error'] = "Failed to delete unit.";
+        }
+        header("Location: admin.course.php");
+        exit;
+    }
+
     if ($objUnits->addUnit()) {
         echo '
         <div class="alert alert-success alert-dismissible fade show" style="margin-left: 18%; max-width: 81%;" role="alert">
@@ -36,12 +49,14 @@
         </div>
         ';
     }
-
     }
 
 ?>
 <link rel="stylesheet" href="../style/admin_units.css">
-
+<!-- <div class="alert alert-success alert-dismissible fade show" style="margin-left: 18%; max-width: 81%;" role="alert">
+    <strong>Success!</strong> Unit added successfully.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div> -->
 
 <div class="navbar-custom">
     <header class="px-1 shadow-sm">
@@ -52,40 +67,11 @@
             </button>
                 <h1 class="navtext">Course</h1>
             </button>
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-end">
-                
-                <!-- Notification Icon with Badge -->
-                <div class="dropdown">
-                    <a href="#" class="text-dark position-relative" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-bell fs-4"></i>
-                        <!-- Notification Badge -->
-                    </a>
-                    <!-- Notifications Dropdown -->
-                    <ul class="dropdown-menu dropdown-menu-end text-small">
-                        <li><strong class="dropdown-header">Notifications</strong></li>
-                        <li><a class="dropdown-item" href="#">New order received</a></li>
-                        <li><a class="dropdown-item" href="#">System update available</a></li>
-                        <li><a class="dropdown-item" href="#">You have a new message</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item text-center" href="#">View all notifications</a></li>
-                    </ul>
-                </div>
-
-                <!-- Profile Dropdown -->
-                <div class="dropdown text-end ms-3">
-                    <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="../imgs/descd.png" alt="mdo" width="32" height="32" class="rounded-circle">
-                    </a>
-                    <ul class="dropdown-menu text-small">
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="../auth/logout.php">Sign out</a></li>
-                    </ul>   
-                </div>
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-end m-lg-2">
+                <a href="../auth/logout.php" class="d-flex align-items-center gap-2 px-3 py-2 text-decoration-none text-dark" >
+                    <i class="bi bi-box-arrow-right fs-5"></i>
+                    <span class="fw-semibold">Logout</span>
+                </a>
             </div>
         </div>
     </header>
@@ -118,7 +104,17 @@ require_once "../dash_chopdown/dash_head.php";
             <div class="container px-6">
                 <section id="services" class="services relative">
                     <div class="container">
-                    <h4 class="page-title fw-bold text-center">Select Unit to modify</h4>
+                    <h4 class="page-title fw-bold text-center">Select Unit to Modify</h4>
+                    <?php if (empty($showUnit)): ?>
+                                <div class="text-center py-5">
+                                    <p class="text-muted fs-2">Nothing yet added</p>
+                                    <div class="card-footer d-flex justify-content-around mt-5">
+                                        <a href="admin.units.php" class="btn btn-warning btn-sm px-4 fw-semibold">
+                                            <i class="bi bi-plus"></i> Add
+                                        </a>
+                                    </div>
+                                </div>
+                            <?php else: ?>
                     <div class="row gy-4">
                         <?php foreach ($showUnit as $su): ?>
                             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
@@ -129,18 +125,21 @@ require_once "../dash_chopdown/dash_head.php";
                                             <?php echo $su['u_title']; ?>
                                         </a>
                                     </h3>
+                                    <?php echo $su['u_description']; ?>
+
                                     <div class="card-footer d-flex justify-content-around mt-5">
-                                        <a href="admin.course.php?unit_id=<?php echo $su['unit_id']; ?>" class="btn btn-warning btn-sm px-4 fw-semibold">
-                                            <i class="bi bi-pencil-square"></i> Edit
+                                        <a href="admin.coursemodify.php?unit_id=<?php echo $su['unit_id']; ?>" class="btn btn-success btn-sm px-4 fw-semibold">
+                                            <i class="bi bi-pencil-square"></i> View
                                         </a>
-                                        <a href="" class="btn btn-danger btn-sm px-4 fw-semibold">
+                                        <!-- <a href="" class="btn btn-danger btn-sm px-4 fw-semibold">
                                             <i class="bi bi-trash"></i> Delete
-                                        </a>    
+                                        </a>     -->
                                     </div>
                                 </div>
                             </div>
                         <?php endforeach; ?>
                     </div>
+                    <?php endif; ?>
                     </div>
 
                     </div>
@@ -160,7 +159,7 @@ require_once "../dash_chopdown/dash_head.php";
         bsAlert.close();
     }
 }, 3000); // 3000ms = 3 seconds
-   
+</script>
     <?php   require_once "../courses/js_courses.php"; ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../vendor/bootstrap-5.3.3/js/bootstrap.bundle.min.js"></script>

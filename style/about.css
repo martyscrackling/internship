@@ -178,6 +178,9 @@
   
   .first .about {
     margin: 30px;
+    text-align: center; 
+    width: 100%;
+    
   }
   .header-wrapper {
     text-align: center;
@@ -214,6 +217,11 @@
   .duration{
     margin-top: 27px;
   }  
+  
+.cont {
+  text-align: center;
+  margin-top: 20px;
+}
 
 
 
@@ -371,7 +379,6 @@
     font-size: 1rem; 
   }
 }
-
 
 
 

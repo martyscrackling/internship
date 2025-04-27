@@ -1,6 +1,14 @@
 <?php
     require_once "../dash_chopdown/dash_head.php";
     require_once "../dash_chopdown/dash_nav.php" ;
+    require_once "../classes/about.class.php" ;
+
+
+    $objAbout = new About;
+    $show = $objAbout->showAbout();
+
+
+    
 ?>
 <title>Goals</title>
 <link rel="stylesheet" href="../style/about.css">
@@ -8,12 +16,12 @@
     <div class="course"></div>
     <div class="content">
         <div class="about">
-        <div class="header-wrapper">
-            <h1 class="header">Goals</h1>
+        <div class="header-wrapper text-center">
+          <h1 class="header">Goals</h1>
         </div>
-            <p class="cont mt-4">
-            The training is an 18-weeks program designed to teach and train participants the necessary skills and training, equip participant's knowledge in Cookery with the necessary acumen to manage the workplace, people and enterprise they will engage in. The training course aims to produce participants who possess multi-skills at different levels and can provide technical support to variety of industrial, commercial and other related organizations.
-            </p>
+        <p class="cont mt-4 text-center">
+          <?php echo $show["a_goals"] ?>
+        </p>
         </div>
     </div>
 </section>
@@ -24,35 +32,28 @@
       <div class="obj">
         <h1 class="fw-bold">OBJECTIVES</h1>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum explicabo omnis recusandae? Soluta obcaecati quos, fugit veniam voluptates expedita reprehenderit doloremque labore. Ut enim, iusto impedit obcaecati, voluptate quod totam aperiam exercitationem nemo minima molestias quae iste, beatae illum at?
+          <?php echo $show["a_objectives"] ?>
         </p>
       </div>
     </div>
     <div class="img">
-      <img src="../imgs/descd.jpeg" alt="DESCD">
+      <img src="../imgs/backgrounds/two.JPG" alt="DESCD">
     </div>
   </div>
 </section>
 
 
 
-<section class="third">
+<section class="third pb-5">
   <div class="agenda">
     <h2 class="agenda-title  fs-1">EXTENSION AGENDA</h2>
     <p class="agenda-text">
-      Our mission is to provide quality education and foster innovation, critical thinking, and leadership among students. We aim to produce graduates who are not only technically competent but also socially responsible and globally competitive.
+      <?php echo $show["a_agenda"] ?>
     </p>
-    <ul class="agenda-points">
-      <li>Promote academic excellence through updated curriculum and modern teaching methods.</li>
-      <li>Encourage research and community involvement as core pillars of growth.</li>
-      <li>Support continuous faculty development and training.</li>
-      <li>Establish partnerships with industries and other institutions for real-world learning experiences.</li>
-      <li>Uphold values of integrity, professionalism, and inclusivity within the academic environment.</li>
-    </ul>
   </div>
 </section>
  
-<section class="framework">
+<!-- <section class="framework">
   <div class="framework-container">
     <h2 class="framework-title">Extension Services Department Framework</h2>
     <p class="framework-description">
@@ -69,7 +70,7 @@
       <div class="framework-box">Community Impact & Feedback</div>
     </div>
   </div>
-</section>
+</section> -->
 
 
 

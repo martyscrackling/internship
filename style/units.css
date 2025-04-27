@@ -328,7 +328,7 @@ section p {
       rgba(0, 0, 0, 0.4) 80%,
       rgba(0, 0, 0, 0.5) 95%
     ),
-    url("../imgs/cetwmsu.png");
+    url("../imgs/backgrounds/wmcet.JPG");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -350,6 +350,15 @@ section p {
 .offer{
   background-color: rgba(201, 201, 201, 0.125);
   padding: 50px 10% ; 
+}
+
+
+.modify  .course-card {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 80, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
 }
 
 
